@@ -1,5 +1,7 @@
 package org.sasapay;
+
 import com.github.tsohr.JSONObject;
+
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
 import java.io.InputStreamReader;
@@ -16,10 +18,8 @@ public class SasaPay {
 //    }
 
     //SASAPAY PRODUCTS
-    public static JSONObject queryMerchantAccountBalance(String bearerToken,String merchant_code) {
-
-        String endpoint_url = ApiUrls.query_merchant_balance+merchant_code;
-
+    public static JSONObject queryMerchantAccountBalance(String bearerToken, String merchant_code) {
+        String endpoint_url = ApiUrls.query_merchant_balance + merchant_code;
         try {
             URL url = new URL(endpoint_url);
             HttpURLConnection con = (HttpURLConnection) url.openConnection();
@@ -48,14 +48,11 @@ public class SasaPay {
         }
     }
 
-    public static JSONObject verifyTransaction(String bearerToken,String merchant_code,String transaction_code) throws Exception {
+    public static JSONObject verifyTransaction(String bearerToken, String merchant_code, String transaction_code) throws Exception {
         String url = ApiUrls.verify_transaction;
-
         Map<String, Object> body = Map.of(
                 "MerchantCode", merchant_code,
                 "TransactionCode", transaction_code);
-
-
         URL obj = new URL(url);
         HttpURLConnection con = (HttpURLConnection) obj.openConnection();
 
@@ -81,7 +78,7 @@ public class SasaPay {
 
         int responseCode = con.getResponseCode();
         if (responseCode != 200) {
-            return  null;
+            return null;
 //            throw new Exception("Response code: " + responseCode);
         }
 
@@ -98,17 +95,12 @@ public class SasaPay {
         return new JSONObject(response.toString());
     }
 
-    public static JSONObject checkTransactionStatus(String bearerToken,String merchant_code,String checkout_request_id) throws Exception {
-
-
+    public static JSONObject checkTransactionStatus(String bearerToken, String merchant_code, String checkout_request_id) throws Exception {
         String url = ApiUrls.check_transaction_status;
-
-
         Map<String, Object> body = Map.of(
                 "MerchantCode", merchant_code,
                 "CheckoutRequestId", checkout_request_id);
 
-
         URL obj = new URL(url);
         HttpURLConnection con = (HttpURLConnection) obj.openConnection();
 
@@ -134,7 +126,7 @@ public class SasaPay {
 
         int responseCode = con.getResponseCode();
         if (responseCode != 200) {
-            return  null;
+            return null;
 //            throw new Exception("Response code: " + responseCode);
         }
 
@@ -151,13 +143,11 @@ public class SasaPay {
         return new JSONObject(response.toString());
     }
 
-    public static JSONObject businessToBusiness(String bearerToken,String merchant_code,String merchant_transaction_reference,int amount,String receiver_merchant_code,String callBack_URL,String descriptions) throws Exception {
+    public static JSONObject businessToBusiness(String bearerToken, String merchant_code, String merchant_transaction_reference, int amount, String receiver_merchant_code, String callBack_URL, String descriptions) throws Exception {
 
         Random rand = new Random();
         int number = rand.nextInt(100);
-
         String url = ApiUrls.business_to_business;
-
         Map<String, Object> body = Map.of(
                 "MerchantCode", merchant_code,
                 "MerchantTransactionReference", merchant_transaction_reference,
@@ -193,7 +183,7 @@ public class SasaPay {
         int responseCode = con.getResponseCode();
         if (responseCode != 200) {
 //            throw new Exception("Response code: " + responseCode);
-            return  null;
+            return null;
         }
 
         // Get response
@@ -209,15 +199,13 @@ public class SasaPay {
         return new JSONObject(response.toString());
     }
 
-    public static JSONObject businessToBeneficiary(String bearerToken, String transaction_reference,String sender_merchant_code,String receiver_merchant_code,String beneficiary_account_number,int amount,int transaction_fee, String descriptions,String callBack_URL) throws Exception {
+    public static JSONObject businessToBeneficiary(String bearerToken, String transaction_reference, String sender_merchant_code, String receiver_merchant_code, String beneficiary_account_number, int amount, int transaction_fee, String descriptions, String callBack_URL) throws Exception {
 
         // NetworkCodes   SasaPay(0) 63902(MPesa) 63903(AirtelMoney) 63907(T-Kash)
-
         Random rand = new Random();
         int number = rand.nextInt(100);
 
         String url = ApiUrls.business_to_beneficiary;
-
         Map<String, Object> body = Map.of(
                 "TransactionReference", transaction_reference,
                 "SenderMerchantCode", sender_merchant_code,
@@ -254,7 +242,7 @@ public class SasaPay {
         int responseCode = con.getResponseCode();
         if (responseCode != 200) {
 //            throw new Exception("Response code: " + responseCode);
-            return  null;
+            return null;
         }
 
         // Get response
@@ -270,16 +258,12 @@ public class SasaPay {
         return new JSONObject(response.toString());
     }
 
-    public static JSONObject businessToCustomer(String bearerToken,String merchant_code,int amount,String merchant_transaction_reference,String receiver_number, String channel_code ,String descriptions,String call_backUrl) throws Exception {
+    public static JSONObject businessToCustomer(String bearerToken, String merchant_code, int amount, String merchant_transaction_reference, String receiver_number, String channel_code, String descriptions, String call_backUrl) throws Exception {
 
         // NetworkCodes   SasaPay(0) 63902(MPesa) 63903(AirtelMoney) 63907(T-Kash)
-
         Random rand = new Random();
         int number = rand.nextInt(100);
-
-
         String url = ApiUrls.business_to_customer;
-
         Map<String, Object> body = Map.of(
                 "MerchantCode", merchant_code,
                 "Amount", amount,
@@ -316,7 +300,7 @@ public class SasaPay {
 
         int responseCode = con.getResponseCode();
         if (responseCode != 200) {
-            return  null;
+            return null;
 //            throw new Exception("Response code: " + responseCode);
         }
 
@@ -333,14 +317,12 @@ public class SasaPay {
         return new JSONObject(response.toString());
     }
 
-    public static JSONObject customerToBusiness(String bearerToken, String merchant_code, String network_code, String phone_number, String transaction_desc, String account_reference ,int amount,String callback_URL) throws Exception {
+    public static JSONObject customerToBusiness(String bearerToken, String merchant_code, String network_code, String phone_number, String transaction_desc, String account_reference, int amount, String callback_URL) throws Exception {
 
         // NetworkCodes   SasaPay(0) 63902(MPesa) 63903(AirtelMoney) 63907(T-Kash)
-
 //        Random rand = new Random();
 //        int number = rand.nextInt(100);
         String url = ApiUrls.customer_to_business;
-
         Map<String, Object> body = Map.of(
                 "MerchantCode", merchant_code,
                 "NetworkCode", network_code,
@@ -350,8 +332,6 @@ public class SasaPay {
                 "Currency", "KES",
                 "Amount", amount,
                 "CallBackURL", callback_URL);
-
-
         URL obj = new URL(url);
         HttpURLConnection con = (HttpURLConnection) obj.openConnection();
 
@@ -378,7 +358,7 @@ public class SasaPay {
         int responseCode = con.getResponseCode();
         if (responseCode != 200) {
 
-            return  null;
+            return null;
 //            throw new Exception("Response code: " + responseCode);
         }
 
@@ -396,15 +376,11 @@ public class SasaPay {
     }
 
     public static JSONObject registerCallbackUrl(String bearerToken, int merchant_code, String confirmation_url) throws Exception {
-
-
         String api_endpoint = ApiUrls.cfn_callbackURL_reg;
 
         Map<String, Object> body = Map.of(
                 "MerchantCode", merchant_code,
                 "ConfirmationUrl", confirmation_url);
-
-
         URL obj = new URL(api_endpoint);
         HttpURLConnection con = (HttpURLConnection) obj.openConnection();
 
@@ -430,7 +406,7 @@ public class SasaPay {
 
         int responseCode = con.getResponseCode();
         if (responseCode != 200) {
-            return  null;
+            return null;
 //            throw new Exception("Response code: " + responseCode);
         }
 
@@ -447,6 +423,7 @@ public class SasaPay {
         return new JSONObject(response.toString());
 
     }
+
     //Authentication
     public static JSONObject getAccessToken(String client_Id, String client_Secret) throws Exception {
         String tokenUrl = ApiUrls.sasapay_base_url;
