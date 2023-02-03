@@ -4,6 +4,7 @@ import com.github.tsohr.JSONObject;
 
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
+import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
@@ -85,7 +86,8 @@ public class SasaPay {
 
         int responseCode = con.getResponseCode();
         if (responseCode != 200) {
-            throw new Exception("Response code: " + responseCode);
+            return  null;
+//            throw new Exception("Response code: " + responseCode);
         }
 
         // Get response
@@ -137,7 +139,8 @@ public class SasaPay {
 
         int responseCode = con.getResponseCode();
         if (responseCode != 200) {
-            throw new Exception("Response code: " + responseCode);
+            return  null;
+//            throw new Exception("Response code: " + responseCode);
         }
 
         // Get response
@@ -194,7 +197,8 @@ public class SasaPay {
 
         int responseCode = con.getResponseCode();
         if (responseCode != 200) {
-            throw new Exception("Response code: " + responseCode);
+//            throw new Exception("Response code: " + responseCode);
+            return  null;
         }
 
         // Get response
@@ -254,7 +258,8 @@ public class SasaPay {
 
         int responseCode = con.getResponseCode();
         if (responseCode != 200) {
-            throw new Exception("Response code: " + responseCode);
+//            throw new Exception("Response code: " + responseCode);
+            return  null;
         }
 
         // Get response
@@ -316,7 +321,8 @@ public class SasaPay {
 
         int responseCode = con.getResponseCode();
         if (responseCode != 200) {
-            throw new Exception("Response code: " + responseCode);
+            return  null;
+//            throw new Exception("Response code: " + responseCode);
         }
 
         // Get response
@@ -376,7 +382,9 @@ public class SasaPay {
 
         int responseCode = con.getResponseCode();
         if (responseCode != 200) {
-            throw new Exception("Response code: " + responseCode);
+
+            return  null;
+//            throw new Exception("Response code: " + responseCode);
         }
 
         // Get response
@@ -392,46 +400,56 @@ public class SasaPay {
         return new JSONObject(response.toString());
     }
 
-    public static void registerCallbackUrl(String access_token, String merchant_code, String confirmation_url) {
+    public static JSONObject registerCallbackUrl(String bearerToken, int merchant_code, String confirmation_url) throws Exception {
 
 
         String api_endpoint = ApiUrls.cfn_callbackURL_reg;
 
-        try {
-            URL url = new URL(api_endpoint);
-            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-            connection.setRequestMethod("POST");
-            connection.setDoOutput(true);
-
-            String data = "MerchantCode=" + merchant_code + "&ConfirmationUrl=" + confirmation_url;
-            byte[] dataBytes = data.getBytes(StandardCharsets.UTF_8);
-
-            connection.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
-            connection.setRequestProperty("Authorization", "Bearer " + access_token);
-            connection.setRequestProperty("Content-Length", Integer.toString(dataBytes.length));
-
-            try (DataOutputStream outputStream = new DataOutputStream(connection.getOutputStream())) {
-                outputStream.write(dataBytes);
-            }
-
-            int responseCode = connection.getResponseCode();
-            if (responseCode == HttpURLConnection.HTTP_OK) {
-                StringBuilder response = new StringBuilder();
-                try (Scanner scanner = new Scanner(new InputStreamReader(connection.getInputStream()))) {
-                    while (scanner.hasNextLine()) {
-                        response.append(scanner.nextLine());
-                    }
-                }
-                JSONObject jsonResponse = new JSONObject(response.toString());
-                System.out.println(jsonResponse);
+        Map<String, Object> body = Map.of(
+                "MerchantCode", merchant_code,
+                "ConfirmationUrl", confirmation_url);
 
 
-            } else {
-                System.out.println("Response code: " + responseCode);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
+        URL obj = new URL(api_endpoint);
+        HttpURLConnection con = (HttpURLConnection) obj.openConnection();
+
+        // Set request method
+        con.setRequestMethod("POST");
+
+        // Add bearer token to authorization header
+        con.setRequestProperty("Authorization", "Bearer " + bearerToken);
+
+        // Set request content type
+        con.setRequestProperty("Content-Type", "application/json");
+
+        // Set request body
+        JSONObject jsonObject = new JSONObject(body);
+        String requestBody = jsonObject.toString();
+
+        // Send post request
+        con.setDoOutput(true);
+        DataOutputStream out = new DataOutputStream(con.getOutputStream());
+        out.writeBytes(requestBody);
+        out.flush();
+        out.close();
+
+        int responseCode = con.getResponseCode();
+        if (responseCode != 200) {
+            return  null;
+//            throw new Exception("Response code: " + responseCode);
         }
+
+        // Get response
+        BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
+        String inputLine;
+        StringBuilder response = new StringBuilder();
+        while ((inputLine = in.readLine()) != null) {
+            response.append(inputLine);
+        }
+        in.close();
+
+        // Return response as JSONObject
+        return new JSONObject(response.toString());
 
     }
     //Authentication
