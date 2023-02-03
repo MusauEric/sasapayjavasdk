@@ -13,9 +13,6 @@ import java.util.Random;
 
 
 public class SasaPay {
-//    public static void SasaPay(String[] args) {
-//        System.out.println("Hello world!");
-//    }
 
     //SASAPAY PRODUCTS
     public static JSONObject queryMerchantAccountBalance(String bearerToken, String merchant_code) {

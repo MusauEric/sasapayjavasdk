@@ -1081,7 +1081,6 @@ public class Waas {
             return null;
         }
     }
-
     public static JSONObject channelCodes(String bearerToken) {
 
         try {
@@ -1112,7 +1111,6 @@ public class Waas {
             return null;
         }
     }
-
     public static JSONObject findNearestSasaPayAgent(String bearerToken) {
 
         try {
