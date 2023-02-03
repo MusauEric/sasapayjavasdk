@@ -1,6 +1,7 @@
 package org.sasapay;
 
 import com.github.tsohr.JSONObject;
+import org.jetbrains.annotations.NotNull;
 
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
@@ -1343,11 +1344,9 @@ public class Waas {
     }
 
     //Authentication
-    public static JSONObject getWaasAccessToken() throws Exception {
-        String tokenUrl = "https://sandbox.sasapay.app/api/v1/waas/auth/token/?grant_type=client_credentials";
-        String clientId = "YQtaz0efSJTH1tAF6s9rXBsiEcl0yXXruPeV9yUb";
-
-        String clientSecret = "XiO9o6O6XMvKCOQKCsHxES997bxp55qFQS0AEZv6k5kseUCBtkHsr5rFOp5jB4gcyEzRvCY15PhEyUQUqH9LEo2l7lggkfEX3IGkDwkg8ht0fN3u23e2cm64SeFEqjNR";
+    @NotNull
+    public static JSONObject getWaasAccessToken(String clientId,String clientSecret) throws Exception {
+        String tokenUrl = ApiUrls.waas_auth;
 
         HttpURLConnection conn = (HttpURLConnection) new URL(tokenUrl).openConnection();
 
@@ -1357,7 +1356,8 @@ public class Waas {
         conn.setDoOutput(true);
 
         if (conn.getResponseCode() != 200) {
-            throw new Exception("Failed to get access token");
+//            throw new Exception("Failed to get access token");
+            return  null;
         }
 
         BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
