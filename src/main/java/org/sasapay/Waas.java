@@ -5,11 +5,13 @@ import org.jetbrains.annotations.NotNull;
 
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.Base64;
 import java.util.Map;
+import java.util.Scanner;
 
 public class Waas {
 
@@ -55,7 +57,14 @@ public class Waas {
 
         int responseCode = con.getResponseCode();
         if (responseCode != 200) {
-            throw new Exception("Response code: " + responseCode);
+            InputStream errorStream = con.getErrorStream();
+            // Read the error stream into a string
+            String errorString = new Scanner(errorStream, "UTF-8").useDelimiter("\\Z").next();
+            // Parse the error string as JSON
+            JSONObject errorJson = new JSONObject(errorString);
+            // Extract the error message from the JSON object
+//            String errorMessage = errorJson.getString("error_message");
+            return errorJson;
         }
 
         // Get response
@@ -109,7 +118,14 @@ public class Waas {
 
         int responseCode = con.getResponseCode();
         if (responseCode != 200) {
-            throw new Exception("Response code: " + responseCode);
+            InputStream errorStream = con.getErrorStream();
+            // Read the error stream into a string
+            String errorString = new Scanner(errorStream, "UTF-8").useDelimiter("\\Z").next();
+            // Parse the error string as JSON
+            JSONObject errorJson = new JSONObject(errorString);
+            // Extract the error message from the JSON object
+//            String errorMessage = errorJson.getString("error_message");
+            return errorJson;
         }
 
         // Get response
@@ -164,7 +180,14 @@ public class Waas {
 
         int responseCode = con.getResponseCode();
         if (responseCode != 200) {
-            throw new Exception("Response code: " + responseCode);
+            InputStream errorStream = con.getErrorStream();
+            // Read the error stream into a string
+            String errorString = new Scanner(errorStream, "UTF-8").useDelimiter("\\Z").next();
+            // Parse the error string as JSON
+            JSONObject errorJson = new JSONObject(errorString);
+            // Extract the error message from the JSON object
+//            String errorMessage = errorJson.getString("error_message");
+            return errorJson;
         }
 
         // Get response
@@ -217,7 +240,14 @@ public class Waas {
 
         int responseCode = con.getResponseCode();
         if (responseCode != 200) {
-            throw new Exception("Response code: " + responseCode);
+            InputStream errorStream = con.getErrorStream();
+            // Read the error stream into a string
+            String errorString = new Scanner(errorStream, "UTF-8").useDelimiter("\\Z").next();
+            // Parse the error string as JSON
+            JSONObject errorJson = new JSONObject(errorString);
+            // Extract the error message from the JSON object
+//            String errorMessage = errorJson.getString("error_message");
+            return errorJson;
         }
 
         // Get response
@@ -272,7 +302,14 @@ public class Waas {
 
         int responseCode = con.getResponseCode();
         if (responseCode != 200) {
-            throw new Exception("Response code: " + responseCode);
+            InputStream errorStream = con.getErrorStream();
+            // Read the error stream into a string
+            String errorString = new Scanner(errorStream, "UTF-8").useDelimiter("\\Z").next();
+            // Parse the error string as JSON
+            JSONObject errorJson = new JSONObject(errorString);
+            // Extract the error message from the JSON object
+//            String errorMessage = errorJson.getString("error_message");
+            return errorJson;
         }
 
         // Get response
@@ -327,7 +364,14 @@ public class Waas {
 
         int responseCode = con.getResponseCode();
         if (responseCode != 200) {
-            throw new Exception("Response code: " + responseCode);
+            InputStream errorStream = con.getErrorStream();
+            // Read the error stream into a string
+            String errorString = new Scanner(errorStream, "UTF-8").useDelimiter("\\Z").next();
+            // Parse the error string as JSON
+            JSONObject errorJson = new JSONObject(errorString);
+            // Extract the error message from the JSON object
+//            String errorMessage = errorJson.getString("error_message");
+            return errorJson;
         }
 
         // Get response
@@ -381,7 +425,14 @@ public class Waas {
 
         int responseCode = con.getResponseCode();
         if (responseCode != 200) {
-            throw new Exception("Response code: " + responseCode);
+            InputStream errorStream = con.getErrorStream();
+            // Read the error stream into a string
+            String errorString = new Scanner(errorStream, "UTF-8").useDelimiter("\\Z").next();
+            // Parse the error string as JSON
+            JSONObject errorJson = new JSONObject(errorString);
+            // Extract the error message from the JSON object
+//            String errorMessage = errorJson.getString("error_message");
+            return errorJson;
         }
 
         // Get response
@@ -436,7 +487,14 @@ public class Waas {
 
         int responseCode = con.getResponseCode();
         if (responseCode != 200) {
-            throw new Exception("Response code: " + responseCode);
+            InputStream errorStream = con.getErrorStream();
+            // Read the error stream into a string
+            String errorString = new Scanner(errorStream, "UTF-8").useDelimiter("\\Z").next();
+            // Parse the error string as JSON
+            JSONObject errorJson = new JSONObject(errorString);
+            // Extract the error message from the JSON object
+//            String errorMessage = errorJson.getString("error_message");
+            return errorJson;
         }
 
         // Get response
@@ -485,7 +543,14 @@ public class Waas {
 
         int responseCode = con.getResponseCode();
         if (responseCode != 200) {
-            throw new Exception("Response code: " + responseCode);
+            InputStream errorStream = con.getErrorStream();
+            // Read the error stream into a string
+            String errorString = new Scanner(errorStream, "UTF-8").useDelimiter("\\Z").next();
+            // Parse the error string as JSON
+            JSONObject errorJson = new JSONObject(errorString);
+            // Extract the error message from the JSON object
+//            String errorMessage = errorJson.getString("error_message");
+            return errorJson;
         }
 
         // Get response
@@ -540,7 +605,14 @@ public class Waas {
 
         int responseCode = con.getResponseCode();
         if (responseCode != 200) {
-            throw new Exception("Response code: " + responseCode);
+            InputStream errorStream = con.getErrorStream();
+            // Read the error stream into a string
+            String errorString = new Scanner(errorStream, "UTF-8").useDelimiter("\\Z").next();
+            // Parse the error string as JSON
+            JSONObject errorJson = new JSONObject(errorString);
+            // Extract the error message from the JSON object
+//            String errorMessage = errorJson.getString("error_message");
+            return errorJson;
         }
 
         // Get response
@@ -595,7 +667,14 @@ public class Waas {
 
         int responseCode = con.getResponseCode();
         if (responseCode != 200) {
-            throw new Exception("Response code: " + responseCode);
+            InputStream errorStream = con.getErrorStream();
+            // Read the error stream into a string
+            String errorString = new Scanner(errorStream, "UTF-8").useDelimiter("\\Z").next();
+            // Parse the error string as JSON
+            JSONObject errorJson = new JSONObject(errorString);
+            // Extract the error message from the JSON object
+//            String errorMessage = errorJson.getString("error_message");
+            return errorJson;
         }
 
         // Get response
@@ -651,7 +730,14 @@ public class Waas {
 
         int responseCode = con.getResponseCode();
         if (responseCode != 200) {
-            throw new Exception("Response code: " + responseCode);
+            InputStream errorStream = con.getErrorStream();
+            // Read the error stream into a string
+            String errorString = new Scanner(errorStream, "UTF-8").useDelimiter("\\Z").next();
+            // Parse the error string as JSON
+            JSONObject errorJson = new JSONObject(errorString);
+            // Extract the error message from the JSON object
+//            String errorMessage = errorJson.getString("error_message");
+            return errorJson;
         }
 
         // Get response
@@ -708,7 +794,14 @@ public class Waas {
 
         int responseCode = con.getResponseCode();
         if (responseCode != 200) {
-            throw new Exception("Response code: " + responseCode);
+            InputStream errorStream = con.getErrorStream();
+            // Read the error stream into a string
+            String errorString = new Scanner(errorStream, "UTF-8").useDelimiter("\\Z").next();
+            // Parse the error string as JSON
+            JSONObject errorJson = new JSONObject(errorString);
+            // Extract the error message from the JSON object
+//            String errorMessage = errorJson.getString("error_message");
+            return errorJson;
         }
 
         // Get response
@@ -762,7 +855,14 @@ public class Waas {
 
         int responseCode = con.getResponseCode();
         if (responseCode != 200) {
-            throw new Exception("Response code: " + responseCode);
+            InputStream errorStream = con.getErrorStream();
+            // Read the error stream into a string
+            String errorString = new Scanner(errorStream, "UTF-8").useDelimiter("\\Z").next();
+            // Parse the error string as JSON
+            JSONObject errorJson = new JSONObject(errorString);
+            // Extract the error message from the JSON object
+//            String errorMessage = errorJson.getString("error_message");
+            return errorJson;
         }
 
         // Get response
@@ -815,7 +915,14 @@ public class Waas {
 
         int responseCode = con.getResponseCode();
         if (responseCode != 200) {
-            throw new Exception("Response code: " + responseCode);
+            InputStream errorStream = con.getErrorStream();
+            // Read the error stream into a string
+            String errorString = new Scanner(errorStream, "UTF-8").useDelimiter("\\Z").next();
+            // Parse the error string as JSON
+            JSONObject errorJson = new JSONObject(errorString);
+            // Extract the error message from the JSON object
+//            String errorMessage = errorJson.getString("error_message");
+            return errorJson;
         }
 
         // Get response
@@ -871,7 +978,14 @@ public class Waas {
 
         int responseCode = con.getResponseCode();
         if (responseCode != 200) {
-            throw new Exception("Response code: " + responseCode);
+            InputStream errorStream = con.getErrorStream();
+            // Read the error stream into a string
+            String errorString = new Scanner(errorStream, "UTF-8").useDelimiter("\\Z").next();
+            // Parse the error string as JSON
+            JSONObject errorJson = new JSONObject(errorString);
+            // Extract the error message from the JSON object
+//            String errorMessage = errorJson.getString("error_message");
+            return errorJson;
         }
 
         // Get response
@@ -927,7 +1041,14 @@ public class Waas {
 
         int responseCode = con.getResponseCode();
         if (responseCode != 200) {
-            throw new Exception("Response code: " + responseCode);
+            InputStream errorStream = con.getErrorStream();
+            // Read the error stream into a string
+            String errorString = new Scanner(errorStream, "UTF-8").useDelimiter("\\Z").next();
+            // Parse the error string as JSON
+            JSONObject errorJson = new JSONObject(errorString);
+            // Extract the error message from the JSON object
+//            String errorMessage = errorJson.getString("error_message");
+            return errorJson;
         }
 
         // Get response
@@ -981,7 +1102,14 @@ public class Waas {
 
         int responseCode = con.getResponseCode();
         if (responseCode != 200) {
-            throw new Exception("Response code: " + responseCode);
+            InputStream errorStream = con.getErrorStream();
+            // Read the error stream into a string
+            String errorString = new Scanner(errorStream, "UTF-8").useDelimiter("\\Z").next();
+            // Parse the error string as JSON
+            JSONObject errorJson = new JSONObject(errorString);
+            // Extract the error message from the JSON object
+//            String errorMessage = errorJson.getString("error_message");
+            return errorJson;
         }
 
         // Get response
@@ -1038,7 +1166,14 @@ public class Waas {
 
         int responseCode = con.getResponseCode();
         if (responseCode != 200) {
-            throw new Exception("Response code: " + responseCode);
+            InputStream errorStream = con.getErrorStream();
+            // Read the error stream into a string
+            String errorString = new Scanner(errorStream, "UTF-8").useDelimiter("\\Z").next();
+            // Parse the error string as JSON
+            JSONObject errorJson = new JSONObject(errorString);
+            // Extract the error message from the JSON object
+//            String errorMessage = errorJson.getString("error_message");
+            return errorJson;
         }
 
         // Get response
@@ -1074,8 +1209,14 @@ public class Waas {
                 return json;
             } else {
 
-                System.out.println( responseCode);
-                return null;
+                InputStream errorStream = con.getErrorStream();
+                // Read the error stream into a string
+                String errorString = new Scanner(errorStream, "UTF-8").useDelimiter("\\Z").next();
+                // Parse the error string as JSON
+                JSONObject errorJson = new JSONObject(errorString);
+                // Extract the error message from the JSON object
+//            String errorMessage = errorJson.getString("error_message");
+                return errorJson;
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -1104,8 +1245,14 @@ public class Waas {
                 return json;
             } else {
 
-                System.out.println( responseCode);
-                return null;
+                InputStream errorStream = con.getErrorStream();
+                // Read the error stream into a string
+                String errorString = new Scanner(errorStream, "UTF-8").useDelimiter("\\Z").next();
+                // Parse the error string as JSON
+                JSONObject errorJson = new JSONObject(errorString);
+                // Extract the error message from the JSON object
+//            String errorMessage = errorJson.getString("error_message");
+                return errorJson;
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -1134,8 +1281,14 @@ public class Waas {
                 return json;
             } else {
 
-                System.out.println( responseCode);
-                return null;
+                InputStream errorStream = con.getErrorStream();
+                // Read the error stream into a string
+                String errorString = new Scanner(errorStream, "UTF-8").useDelimiter("\\Z").next();
+                // Parse the error string as JSON
+                JSONObject errorJson = new JSONObject(errorString);
+                // Extract the error message from the JSON object
+//            String errorMessage = errorJson.getString("error_message");
+                return errorJson;
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -1164,8 +1317,14 @@ public class Waas {
                 return json;
             } else {
 
-                System.out.println( responseCode);
-                return null;
+                InputStream errorStream = con.getErrorStream();
+                // Read the error stream into a string
+                String errorString = new Scanner(errorStream, "UTF-8").useDelimiter("\\Z").next();
+                // Parse the error string as JSON
+                JSONObject errorJson = new JSONObject(errorString);
+                // Extract the error message from the JSON object
+//            String errorMessage = errorJson.getString("error_message");
+                return errorJson;
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -1213,7 +1372,14 @@ public class Waas {
 
         int responseCode = con.getResponseCode();
         if (responseCode != 200) {
-            throw new Exception("Response code: " + responseCode);
+            InputStream errorStream = con.getErrorStream();
+            // Read the error stream into a string
+            String errorString = new Scanner(errorStream, "UTF-8").useDelimiter("\\Z").next();
+            // Parse the error string as JSON
+            JSONObject errorJson = new JSONObject(errorString);
+            // Extract the error message from the JSON object
+//            String errorMessage = errorJson.getString("error_message");
+            return errorJson;
         }
 
         // Get response
@@ -1269,7 +1435,14 @@ public class Waas {
 
         int responseCode = con.getResponseCode();
         if (responseCode != 200) {
-            throw new Exception("Response code: " + responseCode);
+            InputStream errorStream = con.getErrorStream();
+            // Read the error stream into a string
+            String errorString = new Scanner(errorStream, "UTF-8").useDelimiter("\\Z").next();
+            // Parse the error string as JSON
+            JSONObject errorJson = new JSONObject(errorString);
+            // Extract the error message from the JSON object
+//            String errorMessage = errorJson.getString("error_message");
+            return errorJson;
         }
 
         // Get response
@@ -1284,20 +1457,20 @@ public class Waas {
         // Return response as JSONObject
         return new JSONObject(response.toString());
     }
-    public static JSONObject entityOnboarding(String bearerToken) throws Exception {
+    public static JSONObject entityOnboarding(String bearerToken,String merchant_code,String business_name,String business_type,String kra_pin,String business_reg_no,String country_code,String mobile_number,String email) throws Exception {
 
 
-        String url = "Endpoint";
+        String url = ApiUrls.entity_onboarding;
 
         Map<String, Object> body = Map.of(
-                "MerchantCode", "merchant_code",
-                "BusinessName", "Musa LTD",
-                "BusinessType", "Partnership",
-                "KraPin", "A04**3533Y",
-                "BusinessRegNo", "KRCW1234",
-                "CountryCode", "254",
-                "MobileNumber", "07*****739",
-                "Email", "entity@example.com",
+                "MerchantCode", merchant_code,
+                "BusinessName", business_name,
+                "BusinessType", business_type,
+                "KraPin", kra_pin,
+                "BusinessRegNo", business_reg_no,
+                "CountryCode", country_code,
+                "MobileNumber", mobile_number,
+                "Email", email,
                 "ProposedAccountNumber", "123456",
                 "CallBackURL", "https://posthere.io/37c6-44a6-a2f4"
         );
@@ -1327,7 +1500,14 @@ public class Waas {
 
         int responseCode = con.getResponseCode();
         if (responseCode != 200) {
-            throw new Exception("Response code: " + responseCode);
+            InputStream errorStream = con.getErrorStream();
+            // Read the error stream into a string
+            String errorString = new Scanner(errorStream, "UTF-8").useDelimiter("\\Z").next();
+            // Parse the error string as JSON
+            JSONObject errorJson = new JSONObject(errorString);
+            // Extract the error message from the JSON object
+//            String errorMessage = errorJson.getString("error_message");
+            return errorJson;
         }
 
         // Get response
@@ -1356,8 +1536,14 @@ public class Waas {
         conn.setDoOutput(true);
 
         if (conn.getResponseCode() != 200) {
-//            throw new Exception("Failed to get access token");
-            return  null;
+            InputStream errorStream = conn.getErrorStream();
+            // Read the error stream into a string
+            String errorString = new Scanner(errorStream, "UTF-8").useDelimiter("\\Z").next();
+            // Parse the error string as JSON
+            JSONObject errorJson = new JSONObject(errorString);
+            // Extract the error message from the JSON object
+//            String errorMessage = errorJson.getString("error_message");
+            return errorJson;
         }
 
         BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));

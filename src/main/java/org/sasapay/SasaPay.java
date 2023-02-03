@@ -4,12 +4,14 @@ import com.github.tsohr.JSONObject;
 
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.Base64;
 import java.util.Map;
 import java.util.Random;
+import java.util.Scanner;
 
 
 public class SasaPay {
@@ -36,8 +38,14 @@ public class SasaPay {
                 return json;
             } else {
 
-                System.out.println(responseCode);
-                return null;
+                InputStream errorStream = con.getErrorStream();
+                // Read the error stream into a string
+                String errorString = new Scanner(errorStream, "UTF-8").useDelimiter("\\Z").next();
+                // Parse the error string as JSON
+                JSONObject errorJson = new JSONObject(errorString);
+                // Extract the error message from the JSON object
+//            String errorMessage = errorJson.getString("error_message");
+                return errorJson;
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -75,8 +83,14 @@ public class SasaPay {
 
         int responseCode = con.getResponseCode();
         if (responseCode != 200) {
-            return null;
-//            throw new Exception("Response code: " + responseCode);
+            InputStream errorStream = con.getErrorStream();
+            // Read the error stream into a string
+            String errorString = new Scanner(errorStream, "UTF-8").useDelimiter("\\Z").next();
+            // Parse the error string as JSON
+            JSONObject errorJson = new JSONObject(errorString);
+            // Extract the error message from the JSON object
+//            String errorMessage = errorJson.getString("error_message");
+            return errorJson;
         }
 
         // Get response
@@ -123,8 +137,14 @@ public class SasaPay {
 
         int responseCode = con.getResponseCode();
         if (responseCode != 200) {
-            return null;
-//            throw new Exception("Response code: " + responseCode);
+            InputStream errorStream = con.getErrorStream();
+            // Read the error stream into a string
+            String errorString = new Scanner(errorStream, "UTF-8").useDelimiter("\\Z").next();
+            // Parse the error string as JSON
+            JSONObject errorJson = new JSONObject(errorString);
+            // Extract the error message from the JSON object
+//            String errorMessage = errorJson.getString("error_message");
+            return errorJson;
         }
 
         // Get response
@@ -179,8 +199,14 @@ public class SasaPay {
 
         int responseCode = con.getResponseCode();
         if (responseCode != 200) {
-//            throw new Exception("Response code: " + responseCode);
-            return null;
+            InputStream errorStream = con.getErrorStream();
+            // Read the error stream into a string
+            String errorString = new Scanner(errorStream, "UTF-8").useDelimiter("\\Z").next();
+            // Parse the error string as JSON
+            JSONObject errorJson = new JSONObject(errorString);
+            // Extract the error message from the JSON object
+//            String errorMessage = errorJson.getString("error_message");
+            return errorJson;
         }
 
         // Get response
@@ -238,8 +264,14 @@ public class SasaPay {
 
         int responseCode = con.getResponseCode();
         if (responseCode != 200) {
-//            throw new Exception("Response code: " + responseCode);
-            return null;
+            InputStream errorStream = con.getErrorStream();
+            // Read the error stream into a string
+            String errorString = new Scanner(errorStream, "UTF-8").useDelimiter("\\Z").next();
+            // Parse the error string as JSON
+            JSONObject errorJson = new JSONObject(errorString);
+            // Extract the error message from the JSON object
+//            String errorMessage = errorJson.getString("error_message");
+            return errorJson;
         }
 
         // Get response
@@ -297,8 +329,14 @@ public class SasaPay {
 
         int responseCode = con.getResponseCode();
         if (responseCode != 200) {
-            return null;
-//            throw new Exception("Response code: " + responseCode);
+            InputStream errorStream = con.getErrorStream();
+            // Read the error stream into a string
+            String errorString = new Scanner(errorStream, "UTF-8").useDelimiter("\\Z").next();
+            // Parse the error string as JSON
+            JSONObject errorJson = new JSONObject(errorString);
+            // Extract the error message from the JSON object
+//            String errorMessage = errorJson.getString("error_message");
+            return errorJson;
         }
 
         // Get response
@@ -354,9 +392,14 @@ public class SasaPay {
 
         int responseCode = con.getResponseCode();
         if (responseCode != 200) {
-
-            return null;
-//            throw new Exception("Response code: " + responseCode);
+            InputStream errorStream = con.getErrorStream();
+            // Read the error stream into a string
+            String errorString = new Scanner(errorStream, "UTF-8").useDelimiter("\\Z").next();
+            // Parse the error string as JSON
+            JSONObject errorJson = new JSONObject(errorString);
+            // Extract the error message from the JSON object
+//            String errorMessage = errorJson.getString("error_message");
+            return errorJson;
         }
 
         // Get response
@@ -403,8 +446,14 @@ public class SasaPay {
 
         int responseCode = con.getResponseCode();
         if (responseCode != 200) {
-            return null;
-//            throw new Exception("Response code: " + responseCode);
+            InputStream errorStream = con.getErrorStream();
+            // Read the error stream into a string
+            String errorString = new Scanner(errorStream, "UTF-8").useDelimiter("\\Z").next();
+            // Parse the error string as JSON
+            JSONObject errorJson = new JSONObject(errorString);
+            // Extract the error message from the JSON object
+//            String errorMessage = errorJson.getString("error_message");
+            return errorJson;
         }
 
         // Get response
@@ -436,8 +485,14 @@ public class SasaPay {
         conn.setDoOutput(true);
 
         if (conn.getResponseCode() != 200) {
-//            throw new Exception("Failed to get access token");
-            return null;
+            InputStream errorStream = conn.getErrorStream();
+            // Read the error stream into a string
+            String errorString = new Scanner(errorStream, "UTF-8").useDelimiter("\\Z").next();
+            // Parse the error string as JSON
+            JSONObject errorJson = new JSONObject(errorString);
+            // Extract the error message from the JSON object
+//            String errorMessage = errorJson.getString("error_message");
+            return errorJson;
         } else {
 
             BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
