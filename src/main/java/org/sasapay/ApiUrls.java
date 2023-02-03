@@ -9,4 +9,12 @@ public class ApiUrls {
     public  static  String business_to_customer = "https://sandbox.sasapay.app/api/v1/payments/b2c/";
 
     public  static  String business_to_beneficiary = "https://sandbox.sasapay.app/api/v1/payments/b2c/beneficiary/";
+
+    public  static  String business_to_business = " https://sandbox.sasapay.app/api/v1/payments/b2b/";
+
+    public  static  String check_transaction_status = "https://sandbox.sasapay.app/api/v1/transactions/status/";
+
+    public  static  String verify_transaction = "https://sandbox.sasapay.app/api/v1/transactions/verify/";
+
+    public  static  String query_merchant_balance = "https://sandbox.sasapay.app/api/v1/payments/check-balance/?MerchantCode=";
 }
