@@ -1,24 +1,19 @@
 package org.sasapay;
-
 import com.github.tsohr.JSONObject;
-
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
-import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.nio.charset.StandardCharsets;
 import java.util.Base64;
 import java.util.Map;
 import java.util.Random;
-import java.util.Scanner;
+
 
 public class SasaPay {
-    public static void SasaPay(String[] args) {
-        System.out.println("Hello world!");
-    }
-
+//    public static void SasaPay(String[] args) {
+//        System.out.println("Hello world!");
+//    }
 
     //SASAPAY PRODUCTS
     public static JSONObject queryMerchantAccountBalance(String bearerToken,String merchant_code) {
