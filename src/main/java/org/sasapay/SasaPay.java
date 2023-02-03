@@ -19,7 +19,6 @@ public class SasaPay {
     }
 
 
-
     //SASAPAY PRODUCTS
     public static JSONObject queryMerchantAccountBalance(String bearerToken) {
 
@@ -27,7 +26,7 @@ public class SasaPay {
             URL url = new URL("Endpoint");
             HttpURLConnection con = (HttpURLConnection) url.openConnection();
             con.setRequestMethod("GET");
-            con.setRequestProperty("Authorization", "Bearer "+bearerToken);
+            con.setRequestProperty("Authorization", "Bearer " + bearerToken);
             int responseCode = con.getResponseCode();
 
             if (responseCode == HttpURLConnection.HTTP_OK) {
@@ -42,7 +41,7 @@ public class SasaPay {
                 return json;
             } else {
 
-                System.out.println( responseCode);
+                System.out.println(responseCode);
                 return null;
             }
         } catch (Exception e) {
@@ -50,6 +49,7 @@ public class SasaPay {
             return null;
         }
     }
+
     public static JSONObject verifyTransaction(String bearerToken) throws Exception {
         String url = "Endpoint";
 
@@ -98,6 +98,7 @@ public class SasaPay {
         // Return response as JSONObject
         return new JSONObject(response.toString());
     }
+
     public static JSONObject checkTransactionStatus(String bearerToken) throws Exception {
 
 
@@ -149,6 +150,7 @@ public class SasaPay {
         // Return response as JSONObject
         return new JSONObject(response.toString());
     }
+
     public static JSONObject businessToBusiness(String bearerToken) throws Exception {
 
         Random rand = new Random();
@@ -205,27 +207,25 @@ public class SasaPay {
         // Return response as JSONObject
         return new JSONObject(response.toString());
     }
-    public static JSONObject businessToBeneficiary(String bearerToken) throws Exception {
+
+    public static JSONObject businessToBeneficiary(String bearerToken, String transaction_reference,String sender_merchant_code,String receiver_merchant_code,String beneficiary_account_number,int amount,int transaction_fee, String descriptions,String callBack_URL) throws Exception {
 
         // NetworkCodes   SasaPay(0) 63902(MPesa) 63903(AirtelMoney) 63907(T-Kash)
 
         Random rand = new Random();
         int number = rand.nextInt(100);
 
-
-        String url = "Endpoint";
-
+        String url = ApiUrls.business_to_beneficiary;
 
         Map<String, Object> body = Map.of(
-                "TransactionReference", "transactionReference",
-                "SenderMerchantCode", "SsenderMerchantCode",
-                "ReceiverMerchantCode", "receiverMerchantCode",
-                "BeneficiaryAccountNumber", "beneficiaryAccountNumber",
-                "Amount", 200,
-                "TransactionFee", 0,
-                "Reason", "description",
-                "CallBackURL", "https://posthere.io/37c6-44a6-a2f4");
-
+                "TransactionReference", transaction_reference,
+                "SenderMerchantCode", sender_merchant_code,
+                "ReceiverMerchantCode", receiver_merchant_code,
+                "BeneficiaryAccountNumber", beneficiary_account_number,
+                "Amount", amount,
+                "TransactionFee", transaction_fee,
+                "Reason", descriptions,
+                "CallBackURL", callBack_URL);
 
         URL obj = new URL(url);
         HttpURLConnection con = (HttpURLConnection) obj.openConnection();
@@ -267,7 +267,8 @@ public class SasaPay {
         // Return response as JSONObject
         return new JSONObject(response.toString());
     }
-    public static JSONObject businessToCustomer(String bearerToken) throws Exception {
+
+    public static JSONObject businessToCustomer(String bearerToken,String merchant_code,int amount,String merchant_transaction_reference,String receiver_number, String channel_code ,String descriptions,String call_backUrl) throws Exception {
 
         // NetworkCodes   SasaPay(0) 63902(MPesa) 63903(AirtelMoney) 63907(T-Kash)
 
@@ -275,18 +276,17 @@ public class SasaPay {
         int number = rand.nextInt(100);
 
 
-        String url = "Endpoint";
-
+        String url = ApiUrls.business_to_customer;
 
         Map<String, Object> body = Map.of(
-                "MerchantCode", "merchant_code",
-                "Amount", 200,
+                "MerchantCode", merchant_code,
+                "Amount", amount,
                 "Currency", "KES",
-                "MerchantTransactionReference", "706071739",
-                "ReceiverNumber", "2547******39",
-                "Channel", "channel_code",
-                "Reason", "description",
-                "CallBackURL", "https://posthere.io/37c6-44a6-a2f4");
+                "MerchantTransactionReference", merchant_transaction_reference,
+                "ReceiverNumber", receiver_number,
+                "Channel", channel_code,
+                "Reason", descriptions,
+                "CallBackURL", call_backUrl);
 
 
         URL obj = new URL(url);
@@ -329,25 +329,24 @@ public class SasaPay {
         // Return response as JSONObject
         return new JSONObject(response.toString());
     }
-    public static JSONObject c2b(String bearerToken) throws Exception {
+
+    public static JSONObject customerToBusiness(String bearerToken, String merchant_code, String network_code, String phone_number, String transaction_desc, String account_reference ,int amount,String callback_URL) throws Exception {
 
         // NetworkCodes   SasaPay(0) 63902(MPesa) 63903(AirtelMoney) 63907(T-Kash)
 
-        Random rand = new Random();
-        int number = rand.nextInt(100);
-
-
-        String url = "https://sandbox.sasapay.app/api/v1/payments/request-payment/";
+//        Random rand = new Random();
+//        int number = rand.nextInt(100);
+        String url = ApiUrls.customer_to_business;
 
         Map<String, Object> body = Map.of(
-                "MerchantCode", "600980",
-                "NetworkCode", "63902",
-                "PhoneNumber", "254706071739",
-                "TransactionDesc", "description",
-                "AccountReference", "706071739",
+                "MerchantCode", merchant_code,
+                "NetworkCode", network_code,
+                "PhoneNumber", phone_number,
+                "TransactionDesc", transaction_desc,
+                "AccountReference", account_reference,
                 "Currency", "KES",
-                "Amount", 5,
-                "CallBackURL", "https://posthere.io/37c6-44a6-a2f4");
+                "Amount", amount,
+                "CallBackURL", callback_URL);
 
 
         URL obj = new URL(url);
@@ -390,11 +389,11 @@ public class SasaPay {
         // Return response as JSONObject
         return new JSONObject(response.toString());
     }
-    public  static  void  registerCallbackUrl (){
 
-        String access_token = "generated access token";
+    public static void registerCallbackUrl(String access_token, String merchant_code, String confirmation_url) {
 
-        String api_endpoint = "Endpoint";
+
+        String api_endpoint = ApiUrls.cfn_callbackURL_reg;
 
         try {
             URL url = new URL(api_endpoint);
@@ -402,11 +401,11 @@ public class SasaPay {
             connection.setRequestMethod("POST");
             connection.setDoOutput(true);
 
-            String data = "MerchantCode=merchant_code&ConfirmationUrl=confirmation_url";
+            String data = "MerchantCode=" + merchant_code + "&ConfirmationUrl=" + confirmation_url;
             byte[] dataBytes = data.getBytes(StandardCharsets.UTF_8);
 
             connection.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
-            connection.setRequestProperty("Authorization", "Bearer "+access_token);
+            connection.setRequestProperty("Authorization", "Bearer " + access_token);
             connection.setRequestProperty("Content-Length", Integer.toString(dataBytes.length));
 
             try (DataOutputStream outputStream = new DataOutputStream(connection.getOutputStream())) {
@@ -421,7 +420,7 @@ public class SasaPay {
                         response.append(scanner.nextLine());
                     }
                 }
-                JSONObject jsonResponse  = new JSONObject(response.toString());
+                JSONObject jsonResponse = new JSONObject(response.toString());
                 System.out.println(jsonResponse);
 
 
@@ -434,7 +433,7 @@ public class SasaPay {
 
     }
     //Authentication
-    public static JSONObject getAccessToken(String client_Id,String client_Secret) throws Exception {
+    public static JSONObject getAccessToken(String client_Id, String client_Secret) throws Exception {
         String tokenUrl = ApiUrls.sasapay_base_url;
 
 //        String clientId = "YQtaz0efSJTH1tAF6s9rXBsiEcl0yXXruPeV9yUb";
@@ -448,19 +447,24 @@ public class SasaPay {
         conn.setDoOutput(true);
 
         if (conn.getResponseCode() != 200) {
-            throw new Exception("Failed to get access token");
+//            throw new Exception("Failed to get access token");
+            return null;
+        } else {
+
+            BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+            StringBuilder response = new StringBuilder();
+            String line;
+            while ((line = br.readLine()) != null) {
+                response.append(line);
+            }
+            br.close();
+
+            JSONObject json = new JSONObject(response.toString());
+            return json;
+
         }
 
-        BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-        StringBuilder response = new StringBuilder();
-        String line;
-        while ((line = br.readLine()) != null) {
-            response.append(line);
-        }
-        br.close();
 
-        JSONObject json = new JSONObject(response.toString());
-        return json;
     }
 
 }
