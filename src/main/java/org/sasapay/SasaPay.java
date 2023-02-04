@@ -415,6 +415,131 @@ public class SasaPay {
         return new JSONObject(response.toString());
     }
 
+
+    public static JSONObject customerToBusinessAliasNumber(String bearerToken) throws Exception {
+
+        // NetworkCodes   SasaPay(0) 63902(MPesa) 63903(AirtelMoney) 63907(T-Kash)
+
+        String url = "https://sandbox.sasapay.app/api/v1/payments/request-payment-by-alias/";
+
+        Map<String, Object> body = Map.of(
+                "MerchantCode", "600980",
+                "AliasNumber", "1**0",
+                "TransactionDesc", "description",
+                "AccountReference", "1102541",
+                "Currency", "KES",
+                "Amount", 10.00,
+                "TransactionFee", 0,
+                "CallBackURL", "https://posthere.io/37c6-44a6-a2f4");
+
+
+        URL obj = new URL(url);
+        HttpURLConnection con = (HttpURLConnection) obj.openConnection();
+
+        // Set request method
+        con.setRequestMethod("POST");
+
+        // Add bearer token to authorization header
+        con.setRequestProperty("Authorization", "Bearer " + bearerToken);
+
+        // Set request content type
+        con.setRequestProperty("Content-Type", "application/json");
+
+        // Set request body
+        JSONObject jsonObject = new JSONObject(body);
+        String requestBody = jsonObject.toString();
+
+        // Send post request
+        con.setDoOutput(true);
+        DataOutputStream out = new DataOutputStream(con.getOutputStream());
+        out.writeBytes(requestBody);
+        out.flush();
+        out.close();
+
+        int responseCode = con.getResponseCode();
+        if (responseCode != 200) {
+            InputStream errorStream = con.getErrorStream();
+            // Read the error stream into a string
+            String errorString = new Scanner(errorStream, "UTF-8").useDelimiter("\\Z").next();
+            // Parse the error string as JSON
+            JSONObject errorJson = new JSONObject(errorString);
+            // Extract the error message from the JSON object
+//            String errorMessage = errorJson.getString("error_message");
+            return errorJson;
+        }
+
+        // Get response
+        BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
+        String inputLine;
+        StringBuilder response = new StringBuilder();
+        while ((inputLine = in.readLine()) != null) {
+            response.append(inputLine);
+        }
+        in.close();
+
+        // Return response as JSONObject
+        return new JSONObject(response.toString());
+    }
+
+    public static JSONObject ProcessPayment(String bearerToken) throws Exception {
+
+        // NetworkCodes   SasaPay(0) 63902(MPesa) 63903(AirtelMoney) 63907(T-Kash)
+
+        String url = "https://sandbox.sasapay.app/api/v1/payments/process-payment/";
+
+        Map<String, Object> body = Map.of(
+                "MerchantCode", "600980",
+                "VerificationCode", "525474");
+
+
+        URL obj = new URL(url);
+        HttpURLConnection con = (HttpURLConnection) obj.openConnection();
+
+        // Set request method
+        con.setRequestMethod("POST");
+
+        // Add bearer token to authorization header
+        con.setRequestProperty("Authorization", "Bearer " + bearerToken);
+
+        // Set request content type
+        con.setRequestProperty("Content-Type", "application/json");
+
+        // Set request body
+        JSONObject jsonObject = new JSONObject(body);
+        String requestBody = jsonObject.toString();
+
+        // Send post request
+        con.setDoOutput(true);
+        DataOutputStream out = new DataOutputStream(con.getOutputStream());
+        out.writeBytes(requestBody);
+        out.flush();
+        out.close();
+
+        int responseCode = con.getResponseCode();
+        if (responseCode != 200) {
+            InputStream errorStream = con.getErrorStream();
+            // Read the error stream into a string
+            String errorString = new Scanner(errorStream, "UTF-8").useDelimiter("\\Z").next();
+            // Parse the error string as JSON
+            JSONObject errorJson = new JSONObject(errorString);
+            // Extract the error message from the JSON object
+//            String errorMessage = errorJson.getString("error_message");
+            return errorJson;
+        }
+
+        // Get response
+        BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
+        String inputLine;
+        StringBuilder response = new StringBuilder();
+        while ((inputLine = in.readLine()) != null) {
+            response.append(inputLine);
+        }
+        in.close();
+
+        // Return response as JSONObject
+        return new JSONObject(response.toString());
+    }
+
     public static JSONObject registerCallbackUrl(String bearerToken, int merchant_code, String confirmation_url) throws Exception {
         String api_endpoint = ApiUrls.cfn_callbackURL_reg;
 
