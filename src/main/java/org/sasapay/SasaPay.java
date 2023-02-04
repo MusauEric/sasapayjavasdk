@@ -415,22 +415,19 @@ public class SasaPay {
         return new JSONObject(response.toString());
     }
 
+    public static JSONObject customerToBusinessAliasNumber(String bearerToken,String merchant_code,String alias_number,String transaction_desc,String account_reference,String amount,String transaction_fee,String call_BackURL) throws Exception {
 
-    public static JSONObject customerToBusinessAliasNumber(String bearerToken) throws Exception {
-
-        // NetworkCodes   SasaPay(0) 63902(MPesa) 63903(AirtelMoney) 63907(T-Kash)
-
-        String url = "https://sandbox.sasapay.app/api/v1/payments/request-payment-by-alias/";
+        String url = ApiUrls.customer_to_business_alias;
 
         Map<String, Object> body = Map.of(
-                "MerchantCode", "600980",
-                "AliasNumber", "1**0",
-                "TransactionDesc", "description",
-                "AccountReference", "1102541",
+                "MerchantCode", merchant_code,
+                "AliasNumber", alias_number,
+                "TransactionDesc", transaction_desc,
+                "AccountReference", account_reference,
                 "Currency", "KES",
-                "Amount", 10.00,
-                "TransactionFee", 0,
-                "CallBackURL", "https://posthere.io/37c6-44a6-a2f4");
+                "Amount", amount,
+                "TransactionFee", transaction_fee,
+                "CallBackURL", call_BackURL);
 
 
         URL obj = new URL(url);
@@ -481,16 +478,13 @@ public class SasaPay {
         return new JSONObject(response.toString());
     }
 
-    public static JSONObject ProcessPayment(String bearerToken) throws Exception {
+    public static JSONObject ProcessPayment(String bearerToken,String merchant_code,String verification_code) throws Exception {
 
-        // NetworkCodes   SasaPay(0) 63902(MPesa) 63903(AirtelMoney) 63907(T-Kash)
-
-        String url = "https://sandbox.sasapay.app/api/v1/payments/process-payment/";
+        String url = ApiUrls.process_payment;
 
         Map<String, Object> body = Map.of(
-                "MerchantCode", "600980",
-                "VerificationCode", "525474");
-
+                "MerchantCode", merchant_code,
+                "VerificationCode", verification_code);
 
         URL obj = new URL(url);
         HttpURLConnection con = (HttpURLConnection) obj.openConnection();

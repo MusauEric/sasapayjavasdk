@@ -12,6 +12,9 @@ public class ApiUrls {
     public  static  String check_transaction_status = "https://sandbox.sasapay.app/api/v1/transactions/status/";
     public  static  String verify_transaction = "https://sandbox.sasapay.app/api/v1/transactions/verify/";
     public  static  String query_merchant_balance = "https://sandbox.sasapay.app/api/v1/payments/check-balance/?MerchantCode=";
+    public  static  String customer_to_business_alias = "https://sandbox.sasapay.app/api/v1/payments/request-payment-by-alias/";
+
+    public  static String process_payment = "https://sandbox.sasapay.app/api/v1/payments/process-payment/";
 
 
     //WaaS url endpoints
