@@ -21,4 +21,6 @@ public class ApiUrls {
 
     public static  String waas_auth = "https://sandbox.sasapay.app/api/v1/waas/auth/token/?grant_type=client_credentials";
     public  static  String entity_onboarding ="https://sandbox.sasapay.app/api/v1/waas/entity-registration/";
+
+    public  static  String entity_onboarding_confirm = "https://sandbox.sasapay.app/api/v1/waas/entity-registration/confirmation/";
 }

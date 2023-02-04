@@ -1457,8 +1457,7 @@ public class Waas {
         // Return response as JSONObject
         return new JSONObject(response.toString());
     }
-    public static JSONObject entityOnboarding(String bearerToken,String merchant_code,String business_name,String business_type,String kra_pin,String business_reg_no,String country_code,String mobile_number,String email) throws Exception {
-
+    public static JSONObject entityOnboarding(String bearerToken,String merchant_code,String business_name,String business_type,String kra_pin,String business_reg_no,String country_code,String mobile_number,String email ,String proposed_account_number,String call_BackURL) throws Exception {
 
         String url = ApiUrls.entity_onboarding;
 
@@ -1471,8 +1470,8 @@ public class Waas {
                 "CountryCode", country_code,
                 "MobileNumber", mobile_number,
                 "Email", email,
-                "ProposedAccountNumber", "123456",
-                "CallBackURL", "https://posthere.io/37c6-44a6-a2f4"
+                "ProposedAccountNumber", proposed_account_number,
+                "CallBackURL", call_BackURL
         );
 
         URL obj = new URL(url);
@@ -1523,6 +1522,64 @@ public class Waas {
         return new JSONObject(response.toString());
     }
 
+    public static JSONObject entityOnboardingConfirm(String bearerToken) throws Exception {
+
+
+        String url = ApiUrls.entity_onboarding_confirm;
+
+        Map<String, Object> body = Map.of(
+                "MerchantCode", "merchant_code",
+                "RegistrationRequestId", "registration_request_Id",
+                "ConfirmationCode", "confirmation_code"
+        );
+
+        URL obj = new URL(url);
+        HttpURLConnection con = (HttpURLConnection) obj.openConnection();
+
+        // Set request method
+        con.setRequestMethod("POST");
+
+        // Add bearer token to authorization header
+        con.setRequestProperty("Authorization", "Bearer " + bearerToken);
+
+        // Set request content type
+        con.setRequestProperty("Content-Type", "application/json");
+
+        // Set request body
+        JSONObject jsonObject = new JSONObject(body);
+        String requestBody = jsonObject.toString();
+
+        // Send post request
+        con.setDoOutput(true);
+        DataOutputStream out = new DataOutputStream(con.getOutputStream());
+        out.writeBytes(requestBody);
+        out.flush();
+        out.close();
+
+        int responseCode = con.getResponseCode();
+        if (responseCode != 200) {
+            InputStream errorStream = con.getErrorStream();
+            // Read the error stream into a string
+            String errorString = new Scanner(errorStream, "UTF-8").useDelimiter("\\Z").next();
+            // Parse the error string as JSON
+            JSONObject errorJson = new JSONObject(errorString);
+            // Extract the error message from the JSON object
+//            String errorMessage = errorJson.getString("error_message");
+            return errorJson;
+        }
+
+        // Get response
+        BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
+        String inputLine;
+        StringBuilder response = new StringBuilder();
+        while ((inputLine = in.readLine()) != null) {
+            response.append(inputLine);
+        }
+        in.close();
+
+        // Return response as JSONObject
+        return new JSONObject(response.toString());
+    }
     //Authentication
     @NotNull
     public static JSONObject getWaasAccessToken(String clientId,String clientSecret) throws Exception {
