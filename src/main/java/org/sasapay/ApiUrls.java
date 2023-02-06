@@ -23,4 +23,5 @@ public class ApiUrls {
     public  static  String entity_onboarding ="https://sandbox.sasapay.app/api/v1/waas/entity-registration/";
 
     public  static  String entity_onboarding_confirm = "https://sandbox.sasapay.app/api/v1/waas/entity-registration/confirmation/";
+    public static  String entity_kyc_upload = "https://sandbox.sasapay.app/api/v1/waas/entity-registration/confirmation/";
 }

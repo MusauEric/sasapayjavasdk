@@ -3,10 +3,7 @@ package org.sasapay;
 import com.github.tsohr.JSONObject;
 import org.jetbrains.annotations.NotNull;
 
-import java.io.BufferedReader;
-import java.io.DataOutputStream;
-import java.io.InputStream;
-import java.io.InputStreamReader;
+import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.Base64;
@@ -1531,6 +1528,68 @@ public class Waas {
                 "MerchantCode", "merchant_code",
                 "RegistrationRequestId", "registration_request_Id",
                 "ConfirmationCode", "confirmation_code"
+        );
+
+        URL obj = new URL(url);
+        HttpURLConnection con = (HttpURLConnection) obj.openConnection();
+
+        // Set request method
+        con.setRequestMethod("POST");
+
+        // Add bearer token to authorization header
+        con.setRequestProperty("Authorization", "Bearer " + bearerToken);
+
+        // Set request content type
+        con.setRequestProperty("Content-Type", "application/json");
+
+        // Set request body
+        JSONObject jsonObject = new JSONObject(body);
+        String requestBody = jsonObject.toString();
+
+        // Send post request
+        con.setDoOutput(true);
+        DataOutputStream out = new DataOutputStream(con.getOutputStream());
+        out.writeBytes(requestBody);
+        out.flush();
+        out.close();
+
+        int responseCode = con.getResponseCode();
+        if (responseCode != 200) {
+            InputStream errorStream = con.getErrorStream();
+            // Read the error stream into a string
+            String errorString = new Scanner(errorStream, "UTF-8").useDelimiter("\\Z").next();
+            // Parse the error string as JSON
+            JSONObject errorJson = new JSONObject(errorString);
+            // Extract the error message from the JSON object
+//            String errorMessage = errorJson.getString("error_message");
+            return errorJson;
+        }
+
+        // Get response
+        BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
+        String inputLine;
+        StringBuilder response = new StringBuilder();
+        while ((inputLine = in.readLine()) != null) {
+            response.append(inputLine);
+        }
+        in.close();
+
+        // Return response as JSONObject
+        return new JSONObject(response.toString());
+    }
+
+    public static JSONObject entityKycUpload(String bearerToken,String merchant_code,String entity_account_number,String kraPinCert_imagepath,String businessRegCert_imagepath) throws Exception {
+
+        String url = ApiUrls.entity_kyc_upload;
+
+        File kraPinCert = new File(kraPinCert_imagepath);
+        File businessRegCert = new File(businessRegCert_imagepath);
+
+        Map<String, Object> body = Map.of(
+                "MerchantCode", merchant_code,
+                "EntityAccountNumber", entity_account_number,
+                "KraPinCertificate",  kraPinCert,
+                "BusinessRegistrationCertificate", businessRegCert
         );
 
         URL obj = new URL(url);
