@@ -1060,18 +1060,18 @@ public class Waas {
         // Return response as JSONObject
         return new JSONObject(response.toString());
     }
-    public static JSONObject beneficiarySendToBeneficiary(String bearerToken) throws Exception {
+    public static JSONObject beneficiarySendToBeneficiary(String bearerToken,String transaction_reference,String sender_beneficiary_accountNumber,String recipient_beneficiary_accountNumber,String amount,String merchant_code,String transaction_fee,String callBack_Url) throws Exception {
 
-        String url = "Endpoint";
+        String url = ApiUrls.beneficiary_send_to_beneficiary;
 
         Map<String, Object> body = Map.of(
-                "TransactionReference", "0****4",
-                "SenderBeneficiaryAccountNumber", "40****59-122",
-                "RecipientBeneficiaryAccountNumber", "4040359-133",
-                "Amount", "2",
-                "MerchantCode", "40****9",
-                "TransactionFee", "0",
-                "CallBackUrl", "https://******.io/d89d-4909-937b"
+                "TransactionReference", transaction_reference,
+                "SenderBeneficiaryAccountNumber", sender_beneficiary_accountNumber,
+                "RecipientBeneficiaryAccountNumber", recipient_beneficiary_accountNumber,
+                "Amount", amount,
+                "MerchantCode", merchant_code,
+                "TransactionFee", transaction_fee,
+                "CallBackUrl", callBack_Url
         );
 
         URL obj = new URL(url);

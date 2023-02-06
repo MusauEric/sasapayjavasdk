@@ -41,4 +41,6 @@ public class ApiUrls {
     public  static  String view_merchant_beneficiaries = "https://sandbox.sasapay.app/api/v1/waas/customers/?MerchantCode=";
 
     public  static  String top_up_beneficiary_wallet = "https://sandbox.sasapay.app/api/v1/waas/customers/load-wallet/request/";
+
+    public static  String beneficiary_send_to_beneficiary = " https://sandbox.sasapay.app/api/v1/waas/customer-to-customer-transfer/";
 }
