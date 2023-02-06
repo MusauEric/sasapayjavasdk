@@ -34,5 +34,11 @@ public class ApiUrls {
 
     public static  String query_merchants_balance = "https://sandbox.sasapay.app/api/v1/waas/merchant-balances/?MerchantCode=";
 
-    public  static  String nearest_sasapay_agent = " https://sandbox.sasapay.app/api/v1/waas/nearest-agent/?";
+    public  static  String nearest_sasapay_agent = "https://sandbox.sasapay.app/api/v1/waas/nearest-agent/?";
+
+    public  static  String channel_code = "https://sandbox.sasapay.app/api/v1/waas/channel-codes/";
+
+    public  static  String view_merchant_beneficiaries = "https://sandbox.sasapay.app/api/v1/waas/customers/?MerchantCode=";
+
+    public  static  String top_up_beneficiary_wallet = "https://sandbox.sasapay.app/api/v1/waas/customers/load-wallet/request/";
 }

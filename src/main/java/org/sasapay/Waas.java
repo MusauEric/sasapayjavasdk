@@ -1121,21 +1121,21 @@ public class Waas {
         // Return response as JSONObject
         return new JSONObject(response.toString());
     }
-    public static JSONObject topUpBeneficiaryWallet(String bearerToken) throws Exception {
+    public static JSONObject topUpBeneficiaryWallet(String bearerToken,String transaction_reference,String network_code,String mobile_number,String beneficiary_account_number,String amount,String transaction_fee,String merchant_code,String callBack_Url,String reason) throws Exception {
 
-        String url = "Endpoint";
+        String url = ApiUrls.top_up_beneficiary_wallet;
 
         Map<String, Object> body = Map.of(
-                "TransactionReference", "0****4",
-                "NetworkCode", "6***2",
-                "MobileNumber", "2547*******39",
-                "BeneficiaryAccountNumber", "40****9-122",
-                "Amount", "1",
-                "TransactionFee", "0",
+                "TransactionReference", transaction_reference,
+                "NetworkCode", network_code,
+                "MobileNumber", mobile_number,
+                "BeneficiaryAccountNumber", beneficiary_account_number,
+                "Amount", amount,
+                "TransactionFee", transaction_fee,
                 "CurrencyCode", "KES",
-                "MerchantCode", "40****9",
-                "CallBackUrl", "https://******.io/d89d-4909-937b",
-                "Reason", "Customer Reason"
+                "MerchantCode", merchant_code,
+                "CallBackUrl", callBack_Url,
+                "Reason", reason
         );
 
         URL obj = new URL(url);
@@ -1185,10 +1185,12 @@ public class Waas {
         // Return response as JSONObject
         return new JSONObject(response.toString());
     }
-    public static JSONObject viewMerchantBeneficiary(String bearerToken) {
+    public static JSONObject viewMerchantBeneficiary(String bearerToken,String merchant_code) {
+
+        String urlEndPoint = ApiUrls.view_merchant_beneficiaries+merchant_code;
 
         try {
-            URL url = new URL("Endpoint");
+            URL url = new URL(urlEndPoint);
             HttpURLConnection con = (HttpURLConnection) url.openConnection();
             con.setRequestMethod("GET");
             con.setRequestProperty("Authorization", "Bearer "+bearerToken);
@@ -1222,8 +1224,10 @@ public class Waas {
     }
     public static JSONObject channelCodes(String bearerToken) {
 
+        String apiEndpoint = ApiUrls.channel_code;
+
         try {
-            URL url = new URL("Endpoint");
+            URL url = new URL(apiEndpoint);
 
             HttpURLConnection con = (HttpURLConnection) url.openConnection();
             con.setRequestMethod("GET");
