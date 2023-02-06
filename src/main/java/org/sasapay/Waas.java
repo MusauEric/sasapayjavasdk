@@ -562,19 +562,19 @@ public class Waas {
         // Return response as JSONObject
         return new JSONObject(response.toString());
     }
-    public static JSONObject lipaFare(String bearerToken) throws Exception {
+    public static JSONObject lipaFare(String bearerToken,String transaction_reference,String beneficiary_account_number,int matatu_bill_number,String amount,int merchant_code,String transaction_fee,String reason ,String callBack_Url) throws Exception {
 
-        String url = "Endpoint";
+        String url = ApiUrls.lipa_fare;
 
         Map<String, Object> body = Map.of(
-                "TransactionReference", "o**9",
-                "BeneficiaryAccountNumber", "40****9-122",
-                "MatatuBillNumber", 1245622,
-                "Amount", 10,
-                "MerchantCode", 4034569,
-                "TransactionFee", 0,
-                "Reason", "Customer Reason",
-                "CallBackUrl", "https://******.io/d89d-4909-937b"
+                "TransactionReference", transaction_reference,
+                "BeneficiaryAccountNumber", beneficiary_account_number,
+                "MatatuBillNumber", matatu_bill_number,
+                "Amount", amount,
+                "MerchantCode", merchant_code,
+                "TransactionFee", transaction_fee,
+                "Reason", reason,
+                "CallBackUrl", callBack_Url
         );
 
         URL obj = new URL(url);

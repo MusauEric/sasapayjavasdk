@@ -57,4 +57,6 @@ public class ApiUrls {
     public  static  String bill_payment = "https://sandbox.sasapay.app/api/v1/waas/request-payment/";
 
     public  static  String till_payment =" https://sandbox.sasapay.app/api/v1/waas/customers/lipa-till/";
+
+    public  static  String lipa_fare = "https://sandbox.sasapay.app/api/v1/waas/customers/lipa-fare/";
 }
