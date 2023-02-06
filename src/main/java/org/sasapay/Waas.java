@@ -624,19 +624,19 @@ public class Waas {
         // Return response as JSONObject
         return new JSONObject(response.toString());
     }
-    public static JSONObject tillPayment(String bearerToken) throws Exception {
+    public static JSONObject tillPayment(String bearerToken,String transaction_reference,String beneficiary_account_number,int sasapay_bill_number,int amount,int merchant_code,int transaction_fee,String reason,String callBack_Url) throws Exception {
 
-        String url = "Endpoint";
+        String url = ApiUrls.till_payment;
 
         Map<String, Object> body = Map.of(
-                "TransactionReference", "2**82",
-                "BeneficiaryAccountNumber", "404***2-1",
-                "SasaPayBillNumber", 1245622,
-                "Amount", 10,
-                "MerchantCode", 4034569,
-                "TransactionFee", 0,
-                "Reason", "Customer Reason",
-                "CallBackUrl", "https://******.io/d89d-4909-937b"
+                "TransactionReference", transaction_reference,
+                "BeneficiaryAccountNumber", beneficiary_account_number,
+                "SasaPayBillNumber", sasapay_bill_number,
+                "Amount", amount,
+                "MerchantCode", merchant_code,
+                "TransactionFee", transaction_fee,
+                "Reason", reason,
+                "CallBackUrl", callBack_Url
         );
 
         URL obj = new URL(url);
@@ -686,20 +686,20 @@ public class Waas {
         // Return response as JSONObject
         return new JSONObject(response.toString());
     }
-    public static JSONObject billPayment(String bearerToken) throws Exception {
+    public static JSONObject billPayment(String bearerToken,String transaction_reference,String bill_ref_number,String beneficiary_account_number,String sasapay_bill_number,int amount,String merchant_code,int transaction_fee,String reason,String callBack_Url) throws Exception {
 
-        String url = "Endpoint";
+        String url = ApiUrls.bill_payment;
 
         Map<String, Object> body = Map.of(
-                "TransactionReference", "2**82",
-                "BillRefNumber", "6***2",
-                "BeneficiaryAccountNumber", "404***2-1",
-                "SasaPayBillNumber", "12***22",
-                "Amount", "10.0",
-                "MerchantCode", "40****9",
-                "TransactionFee", "0",
-                "Reason", "Customer Reason",
-                "CallBackUrl", "https://******.io/d89d-4909-937b"
+                "TransactionReference", transaction_reference,
+                "BillRefNumber", bill_ref_number,
+                "BeneficiaryAccountNumber", beneficiary_account_number,
+                "SasaPayBillNumber", sasapay_bill_number,
+                "Amount", amount,
+                "MerchantCode", merchant_code,
+                "TransactionFee", transaction_fee,
+                "Reason", reason,
+                "CallBackUrl", callBack_Url
         );
 
         URL obj = new URL(url);
@@ -749,21 +749,21 @@ public class Waas {
         // Return response as JSONObject
         return new JSONObject(response.toString());
     }
-    public static JSONObject requestPayment(String bearerToken) throws Exception {
+    public static JSONObject requestPayment(String bearerToken,String transaction_reference,String network_code,String mobile_number,String beneficiary_account_number,int amount,int transaction_fee,String merchant_code,String reason,String callBack_Url) throws Exception {
 
-        String url = "Endpoint";
+        String url = ApiUrls.request_payment;
 
         Map<String, Object> body = Map.of(
-                "TransactionReference", "2**82",
-                "NetworkCode", "6***2",
-                "MobileNumber", "2547*******39",
-                "BeneficiaryAccountNumber", "404***2-1",
-                "Amount", "10.0",
-                "TransactionFee", "0",
+                "TransactionReference", transaction_reference,
+                "NetworkCode", network_code,
+                "MobileNumber", mobile_number,
+                "BeneficiaryAccountNumber", beneficiary_account_number,
+                "Amount", amount,
+                "TransactionFee", transaction_fee,
                 "CurrencyCode", "KES",
-                "MerchantCode", "40****9",
-                "Reason", "Customer Reason",
-                "CallBackUrl", "https://******.io/d89d-4909-937b"
+                "MerchantCode", merchant_code,
+                "Reason", reason,
+                "CallBackUrl", callBack_Url
         );
 
         URL obj = new URL(url);

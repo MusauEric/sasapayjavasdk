@@ -50,5 +50,11 @@ public class ApiUrls {
 
     public  static  String merchant_to_beneficiary = "https://sandbox.sasapay.app/api/v1/waas/merchant-to-beneficiary/";
 
-    public  static  String beneficiary_to_merchant = " https://sandbox.sasapay.app/api/v1/waas/beneficiary-to-merchant/";
+    public  static  String beneficiary_to_merchant = "https://sandbox.sasapay.app/api/v1/waas/beneficiary-to-merchant/";
+
+    public static String request_payment="https://sandbox.sasapay.app/api/v1/waas/request-payment/";
+
+    public  static  String bill_payment = "https://sandbox.sasapay.app/api/v1/waas/request-payment/";
+
+    public  static  String till_payment =" https://sandbox.sasapay.app/api/v1/waas/customers/lipa-till/";
 }
