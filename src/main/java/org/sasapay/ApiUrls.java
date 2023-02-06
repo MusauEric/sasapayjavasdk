@@ -43,4 +43,12 @@ public class ApiUrls {
     public  static  String top_up_beneficiary_wallet = "https://sandbox.sasapay.app/api/v1/waas/customers/load-wallet/request/";
 
     public static  String beneficiary_send_to_beneficiary = " https://sandbox.sasapay.app/api/v1/waas/customer-to-customer-transfer/";
+
+    public static String send_to_mobile_money = "https://sandbox.sasapay.app/api/v1/waas/customer-to-mobile-money-transfer/";
+
+    public static String send_to_bank = "https://sandbox.sasapay.app/api/v1/waas/customer-to-bank-transfer/";
+
+    public  static  String merchant_to_beneficiary = "https://sandbox.sasapay.app/api/v1/waas/merchant-to-beneficiary/";
+
+    public  static  String beneficiary_to_merchant = " https://sandbox.sasapay.app/api/v1/waas/beneficiary-to-merchant/";
 }
