@@ -1256,10 +1256,13 @@ public class Waas {
             return null;
         }
     }
-    public static JSONObject findNearestSasaPayAgent(String bearerToken) {
+
+    public static JSONObject findNearestSasaPayAgent(String bearerToken,String Longitude,String Latitude ) {
+
+        String urlEndpoint = ApiUrls.nearest_sasapay_agent+"Longitude="+Longitude+"&Latitude="+Latitude;
 
         try {
-            URL url = new URL("Endpoint");
+            URL url = new URL(urlEndpoint);
 
             HttpURLConnection con = (HttpURLConnection) url.openConnection();
             con.setRequestMethod("GET");
@@ -1292,10 +1295,12 @@ public class Waas {
             return null;
         }
     }
-    public static JSONObject queryMerchantAccountBalances(String bearerToken) {
+    public static JSONObject queryMerchantAccountBalances(String bearerToken,String merchant_code) {
+
+        String urlEndpoint = ApiUrls.query_merchants_balance+merchant_code;
 
         try {
-            URL url = new URL("Endpoint");
+            URL url = new URL(urlEndpoint);
 
             HttpURLConnection con = (HttpURLConnection) url.openConnection();
             con.setRequestMethod("GET");
@@ -1328,20 +1333,21 @@ public class Waas {
             return null;
         }
     }
-    public static JSONObject amendBeneficiaryDetails(String bearerToken) throws Exception {
 
-        String url = "Endpoint";
+    public static JSONObject amendBeneficiaryDetails(String bearerToken,String merchant_code,String first_name,String middle_name,String last_name, String document_type,String document_number,String email,String beneficiary_account_number) throws Exception {
+
+        String url = ApiUrls.amend_beneficiary_details;
 
 
         Map<String, Object> body = Map.of(
-                "MerchantCode", "merchant_code",
-                "FirstName", "Erick",
-                "MiddleName", "",
-                "LastName", "Musa",
-                "DocumentType", "1",
-                "DocumentNumber", "123459**6",
-                "Email", "entity@example.com",
-                "BeneficiaryAccountNumber", "83***1-1**9"
+                "MerchantCode", merchant_code,
+                "FirstName", first_name,
+                "MiddleName", middle_name,
+                "LastName", last_name,
+                "DocumentType", document_type,
+                "DocumentNumber", document_number,
+                "Email", email,
+                "BeneficiaryAccountNumber", beneficiary_account_number
         );
 
         URL obj = new URL(url);
@@ -1391,20 +1397,21 @@ public class Waas {
         // Return response as JSONObject
         return new JSONObject(response.toString());
     }
-    public static JSONObject beneficiaryOnboarding(String bearerToken) throws Exception {
 
-        String url = "Endpoint";
+    public static JSONObject beneficiaryOnboarding(String bearerToken,String merchant_code,String first_name,String middle_name,String last_name,String mobile_number,String document_type,String document_number,String email) throws Exception {
+
+        String url = ApiUrls.beneficiary_onboarding;
 
         Map<String, Object> body = Map.of(
-                "MerchantCode", "merchant_code",
-                "FirstName", "Erick",
-                "MiddleName", "",
-                "LastName", "Musa",
+                "MerchantCode", merchant_code,
+                "FirstName", first_name,
+                "MiddleName", middle_name,
+                "LastName", last_name,
                 "CountryCode", "254",
-                "MobileNumber", "07*****739",
-                "DocumentType", "1",
-                "DocumentNumber", "123459**6",
-                "Email", "entity@example.com"
+                "MobileNumber", mobile_number,
+                "DocumentType", document_type,
+                "DocumentNumber", document_number,
+                "Email", email
         );
 
         URL obj = new URL(url);
@@ -1576,8 +1583,6 @@ public class Waas {
         // Return response as JSONObject
         return new JSONObject(response.toString());
     }
-
-
 
     public static JSONObject entityOnboarding(String bearerToken,String merchant_code,String business_name,String business_type,String kra_pin,String business_reg_no,String country_code,String mobile_number,String email ,String proposed_account_number,String call_BackURL) throws Exception {
 
