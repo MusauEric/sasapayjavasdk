@@ -64,5 +64,11 @@ public class ApiUrls {
 
     public  static String share_points_to_beneficiaries = "https://sandbox.sasapay.app/api/v1/waas/points/beneficiary-to-beneficiary/";
 
-    public static String top_up_beneficiary_point= " https://sandbox.sasapay.app/api/v1/waas/points/merchant-to-beneficiary/";
+    public static String top_up_beneficiary_point= "https://sandbox.sasapay.app/api/v1/waas/points/merchant-to-beneficiary/";
+
+    public static String transfer_point_to_merchant="https://sandbox.sasapay.app/api/v1/waas/points/beneficiary-to-merchant/";
+
+    public  static  String redeem_loyalty_points ="https://sandbox.sasapay.app/api/v1/waas/points/redeem/";
+
+    public  static String purchase_airtime = "https://sandbox.sasapay.app/api/v1/waas/utilities/direct-airtime/";
 }
