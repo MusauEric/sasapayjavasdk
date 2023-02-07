@@ -71,4 +71,10 @@ public class ApiUrls {
     public  static  String redeem_loyalty_points ="https://sandbox.sasapay.app/api/v1/waas/points/redeem/";
 
     public  static String purchase_airtime = "https://sandbox.sasapay.app/api/v1/waas/utilities/direct-airtime/";
+
+    public  static  String post_paid_pay_bill = "https://sandbox.sasapay.app/api/v1/waas/utilities/postpaid-bill-payments/";
+
+    public  static  String tv_payment = "https://sandbox.sasapay.app/api/v1/waas/utilities/pay-tv/";
+
+    public static  String purchase_kplc= "https://sandbox.sasapay.app/api/v1/waas/utilities/kplc-token/";
 }

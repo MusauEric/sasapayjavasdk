@@ -14,17 +14,17 @@ public class Waas {
 
     //WAAS PRODUCTS
 
-    public static JSONObject purchaseKPLCtoken(String bearerToken) throws Exception {
+    public static JSONObject purchaseKPLCtoken(String bearerToken,String merchant_code,String meter_number, String beneficiary_account_number, String mobile_number ,int amount ,String callBackUrl) throws Exception {
 
-        String url = "Endpoint";
+        String url = ApiUrls.purchase_kplc;
 
         Map<String, Object> body = Map.of(
-                "MerchantCode",  "40****9",
-                "MeterNumber", "123456****012",
-                "BeneficiaryAccountNumber", "40****9-122",
-                "MobileNumber", "2547******39",
-                "Amount", 10,
-                "CallBackUrl", "https://posth****.io/d89d-4909-937b"
+                "MerchantCode",  merchant_code,
+                "MeterNumber", meter_number,
+                "BeneficiaryAccountNumber", beneficiary_account_number,
+                "MobileNumber", mobile_number,
+                "Amount", amount,
+                "CallBackUrl", callBackUrl
 
         );
 
@@ -75,17 +75,17 @@ public class Waas {
         // Return response as JSONObject
         return new JSONObject(response.toString());
     }
-    public static JSONObject tvPayment(String bearerToken) throws Exception {
+    public static JSONObject tvPayment(String bearerToken,String merchant_code,String service_code,String account_number,String beneficiary_account_number,String mobile_number,String amount,String callBack_Url) throws Exception {
 
-        String url = "Endpoint";
+        String url = ApiUrls.tv_payment;
         Map<String, Object> body = Map.of(
-                "MerchantCode",  "40****9",
-                "ServiceCode", "DSTV",
-                "AccountNumber", "12****78",
-                "BeneficiaryAccountNumber", "40****9-122",
-                "MobileNumber", "2547******39",
-                "Amount", 10,
-                "CallBackUrl", "https://posth****.io/d89d-4909-937b"
+                "MerchantCode",  merchant_code,
+                "ServiceCode", service_code,
+                "AccountNumber", account_number,
+                "BeneficiaryAccountNumber", beneficiary_account_number,
+                "MobileNumber", mobile_number,
+                "Amount", amount,
+                "CallBackUrl", callBack_Url
 
         );
 
@@ -136,18 +136,18 @@ public class Waas {
         // Return response as JSONObject
         return new JSONObject(response.toString());
     }
-    public static JSONObject postPaidBillPayments(String bearerToken) throws Exception {
+    public static JSONObject postPaidBillPayments(String bearerToken,String merchant_code,String service_code,String beneficiary_account_number,String account_number,String mobile_number,int amount,String callBack_Url) throws Exception {
 
-        String url = "Endpoint";
+        String url = ApiUrls.post_paid_pay_bill;
 
         Map<String, Object> body = Map.of(
-                "MerchantCode",  "40****9",
-                "ServiceCode", "WATER",
-                "BeneficiaryAccountNumber", "40****9",
-                "AccountNumber", "12****78",
-                "MobileNumber", "2547******39",
-                "Amount", 10,
-                "CallBackUrl", "https://posth****.io/d89d-4909-937b"
+                "MerchantCode",  merchant_code,
+                "ServiceCode", service_code,
+                "BeneficiaryAccountNumber", beneficiary_account_number,
+                "AccountNumber", account_number,
+                "MobileNumber", mobile_number,
+                "Amount", amount,
+                "CallBackUrl", callBack_Url
 
         );
 
