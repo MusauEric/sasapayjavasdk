@@ -591,7 +591,7 @@ public class SasaPay {
 
     //Authentication
     public static JSONObject getAccessToken(String client_Id, String client_Secret) throws Exception {
-        String tokenUrl = ApiUrls.sasapay_base_url;
+        String tokenUrl = ApiUrls.sasapay_auth_url;
 
 //        String clientId = "YQtaz0efSJTH1tAF6s9rXBsiEcl0yXXruPeV9yUb";
 //        String clientSecret = "XiO9o6O6XMvKCOQKCsHxES997bxp55qFQS0AEZv6k5kseUCBtkHsr5rFOp5jB4gcyEzRvCY15PhEyUQUqH9LEo2l7lggkfEX3IGkDwkg8ht0fN3u23e2cm64SeFEqjNR";
