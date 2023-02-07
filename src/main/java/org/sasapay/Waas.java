@@ -12,7 +12,6 @@ import java.util.Scanner;
 
 public class Waas {
 
-
     //WAAS PRODUCTS
 
     public static JSONObject purchaseKPLCtoken(String bearerToken) throws Exception {
@@ -383,17 +382,17 @@ public class Waas {
         // Return response as JSONObject
         return new JSONObject(response.toString());
     }
-    public static JSONObject topUpBeneficiaryPoint(String bearerToken) throws Exception {
+    public static JSONObject topUpBeneficiaryPoint(String bearerToken,String transaction_reference,String beneficiary_account_number,int points, int transaction_fee,String callBack_Url,String reason) throws Exception {
 
-        String url = "Endpoint";
+        String url = ApiUrls.top_up_beneficiary_point;
 
         Map<String, Object> body = Map.of(
-                "TransactionReference", "4dbac0a9-**********-f1f18a7962ae",
-                "BeneficiaryAccountNumber", "1***398-100",
-                "Points", 10,
-                "TransactionFee", 0,
-                "CallBackUrl", "https://posth****.io/d89d-4909-937b",
-                "Reason", "Customer Reason"
+                "TransactionReference", transaction_reference,
+                "BeneficiaryAccountNumber", beneficiary_account_number,
+                "Points", points,
+                "TransactionFee", transaction_fee,
+                "CallBackUrl", callBack_Url,
+                "Reason", reason
 
         );
 
@@ -444,19 +443,19 @@ public class Waas {
         // Return response as JSONObject
         return new JSONObject(response.toString());
     }
-    public static JSONObject sharePointToOtherBeneficiary(String bearerToken) throws Exception {
+    public static JSONObject sharePointToOtherBeneficiary(String bearerToken,String transaction_reference,String sender_beneficiary_account_number,String recipient_beneficiary_account_number,String merchant_code,int points,int transaction_fee,String reason,String callBack_Url) throws Exception {
 
-        String url = "Endpoint";
+        String url = ApiUrls.share_points_to_beneficiaries;
 
         Map<String, Object> body = Map.of(
-                "TransactionReference", "4dbac0a9-**********-f1f18a7962ae",
-                "SenderBeneficiaryAccountNumber", "1***398-100",
-                "RecipientBeneficiaryAccountNumber", "1***398-100",
-                "MerchantCode", "831398",
-                "Points", 10,
-                "TransactionFee", 0,
-                "Reason", "Customer Reason",
-                "CallBackUrl", "https://posth****.io/d89d-4909-937b"
+                "TransactionReference", transaction_reference,
+                "SenderBeneficiaryAccountNumber", sender_beneficiary_account_number,
+                "RecipientBeneficiaryAccountNumber", recipient_beneficiary_account_number,
+                "MerchantCode", merchant_code,
+                "Points", points,
+                "TransactionFee", transaction_fee,
+                "Reason", reason,
+                "CallBackUrl", callBack_Url
         );
 
         URL obj = new URL(url);
@@ -506,13 +505,13 @@ public class Waas {
         // Return response as JSONObject
         return new JSONObject(response.toString());
     }
-    public static JSONObject queryTransactionStatus(String bearerToken) throws Exception {
+    public static JSONObject queryTransactionStatus(String bearerToken,String merchant_code,String transaction_Reference) throws Exception {
 
-        String url = "Endpoint";
+        String url = ApiUrls.query_transaction_status;
 
         Map<String, Object> body = Map.of(
-                "MerchantCode", "40****9",
-                "TransactionReference", "4dbac0a9-**********-f1f18a7962ae"
+                "MerchantCode", merchant_code,
+                "TransactionReference", transaction_Reference
         );
 
         URL obj = new URL(url);

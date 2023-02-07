@@ -59,4 +59,10 @@ public class ApiUrls {
     public  static  String till_payment =" https://sandbox.sasapay.app/api/v1/waas/customers/lipa-till/";
 
     public  static  String lipa_fare = "https://sandbox.sasapay.app/api/v1/waas/customers/lipa-fare/";
+
+    public  static  String query_transaction_status = "https://sandbox.sasapay.app/api/v1/waas/transaction-status/";
+
+    public  static String share_points_to_beneficiaries = "https://sandbox.sasapay.app/api/v1/waas/points/beneficiary-to-beneficiary/";
+
+    public static String top_up_beneficiary_point= " https://sandbox.sasapay.app/api/v1/waas/points/merchant-to-beneficiary/";
 }
