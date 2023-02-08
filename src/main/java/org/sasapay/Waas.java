@@ -1,7 +1,7 @@
 package org.sasapay;
 
 import com.github.tsohr.JSONObject;
-import org.jetbrains.annotations.NotNull;
+
 
 import java.io.*;
 import java.net.HttpURLConnection;
@@ -14,7 +14,7 @@ public class Waas {
 
     //WAAS PRODUCTS
 
-    public static JSONObject purchaseKPLCtoken(String bearerToken,String merchant_code,String meter_number, String beneficiary_account_number, String mobile_number ,int amount ,String callBackUrl) throws Exception {
+    public  JSONObject purchaseKPLCtoken(String bearerToken,String merchant_code,String meter_number, String beneficiary_account_number, String mobile_number ,int amount ,String callBackUrl) throws Exception {
 
         String url = ApiUrls.purchase_kplc;
 
@@ -75,7 +75,7 @@ public class Waas {
         // Return response as JSONObject
         return new JSONObject(response.toString());
     }
-    public static JSONObject tvPayment(String bearerToken,String merchant_code,String service_code,String account_number,String beneficiary_account_number,String mobile_number,String amount,String callBack_Url) throws Exception {
+    public  JSONObject tvPayment(String bearerToken,String merchant_code,String service_code,String account_number,String beneficiary_account_number,String mobile_number,String amount,String callBack_Url) throws Exception {
 
         String url = ApiUrls.tv_payment;
         Map<String, Object> body = Map.of(
@@ -136,7 +136,7 @@ public class Waas {
         // Return response as JSONObject
         return new JSONObject(response.toString());
     }
-    public static JSONObject postPaidBillPayments(String bearerToken,String merchant_code,String service_code,String beneficiary_account_number,String account_number,String mobile_number,int amount,String callBack_Url) throws Exception {
+    public  JSONObject postPaidBillPayments(String bearerToken,String merchant_code,String service_code,String beneficiary_account_number,String account_number,String mobile_number,int amount,String callBack_Url) throws Exception {
 
         String url = ApiUrls.post_paid_pay_bill;
 
@@ -198,7 +198,7 @@ public class Waas {
         // Return response as JSONObject
         return new JSONObject(response.toString());
     }
-    public static JSONObject purchaseAirtime(String bearerToken,String merchant_code,String beneficiary_account_number,String mobile_number,int amount,String callBack_Url) throws Exception {
+    public  JSONObject purchaseAirtime(String bearerToken,String merchant_code,String beneficiary_account_number,String mobile_number,int amount,String callBack_Url) throws Exception {
 
         String url = ApiUrls.purchase_airtime;
 
@@ -258,7 +258,7 @@ public class Waas {
         // Return response as JSONObject
         return new JSONObject(response.toString());
     }
-    public static JSONObject redeemLoyaltyPoint(String bearerToken,String transaction_reference,String beneficiary_account_number,int points,int transaction_fee,String merchant_code,String callBack_Url,String reason) throws Exception {
+    public  JSONObject redeemLoyaltyPoint(String bearerToken,String transaction_reference,String beneficiary_account_number,int points,int transaction_fee,String merchant_code,String callBack_Url,String reason) throws Exception {
 
         String url = ApiUrls.redeem_loyalty_points;
 
@@ -319,7 +319,7 @@ public class Waas {
         // Return response as JSONObject
         return new JSONObject(response.toString());
     }
-    public static JSONObject transferPointToMerchantsAccount(String bearerToken,String transaction_reference,String beneficiary_account_number,int points,int transaction_fee,String merchant_code,String callBack_Url,String reason) throws Exception {
+    public  JSONObject transferPointToMerchantsAccount(String bearerToken,String transaction_reference,String beneficiary_account_number,int points,int transaction_fee,String merchant_code,String callBack_Url,String reason) throws Exception {
 
         String url = ApiUrls.transfer_point_to_merchant;
 
@@ -380,7 +380,7 @@ public class Waas {
         // Return response as JSONObject
         return new JSONObject(response.toString());
     }
-    public static JSONObject topUpBeneficiaryPoint(String bearerToken,String transaction_reference,String beneficiary_account_number,int points, int transaction_fee,String callBack_Url,String reason) throws Exception {
+    public  JSONObject topUpBeneficiaryPoint(String bearerToken,String transaction_reference,String beneficiary_account_number,int points, int transaction_fee,String callBack_Url,String reason) throws Exception {
 
         String url = ApiUrls.top_up_beneficiary_point;
 
@@ -441,7 +441,7 @@ public class Waas {
         // Return response as JSONObject
         return new JSONObject(response.toString());
     }
-    public static JSONObject sharePointToOtherBeneficiary(String bearerToken,String transaction_reference,String sender_beneficiary_account_number,String recipient_beneficiary_account_number,String merchant_code,int points,int transaction_fee,String reason,String callBack_Url) throws Exception {
+    public  JSONObject sharePointToOtherBeneficiary(String bearerToken,String transaction_reference,String sender_beneficiary_account_number,String recipient_beneficiary_account_number,String merchant_code,int points,int transaction_fee,String reason,String callBack_Url) throws Exception {
 
         String url = ApiUrls.share_points_to_beneficiaries;
 
@@ -503,7 +503,7 @@ public class Waas {
         // Return response as JSONObject
         return new JSONObject(response.toString());
     }
-    public static JSONObject queryTransactionStatus(String bearerToken,String merchant_code,String transaction_Reference) throws Exception {
+    public  JSONObject queryTransactionStatus(String bearerToken,String merchant_code,String transaction_Reference) throws Exception {
 
         String url = ApiUrls.query_transaction_status;
 
@@ -559,7 +559,7 @@ public class Waas {
         // Return response as JSONObject
         return new JSONObject(response.toString());
     }
-    public static JSONObject lipaFare(String bearerToken,String transaction_reference,String beneficiary_account_number,int matatu_bill_number,String amount,int merchant_code,String transaction_fee,String reason ,String callBack_Url) throws Exception {
+    public  JSONObject lipaFare(String bearerToken,String transaction_reference,String beneficiary_account_number,int matatu_bill_number,String amount,int merchant_code,String transaction_fee,String reason ,String callBack_Url) throws Exception {
 
         String url = ApiUrls.lipa_fare;
 
@@ -621,7 +621,7 @@ public class Waas {
         // Return response as JSONObject
         return new JSONObject(response.toString());
     }
-    public static JSONObject tillPayment(String bearerToken,String transaction_reference,String beneficiary_account_number,int sasapay_bill_number,int amount,int merchant_code,int transaction_fee,String reason,String callBack_Url) throws Exception {
+    public  JSONObject tillPayment(String bearerToken,String transaction_reference,String beneficiary_account_number,int sasapay_bill_number,int amount,int merchant_code,int transaction_fee,String reason,String callBack_Url) throws Exception {
 
         String url = ApiUrls.till_payment;
 
@@ -683,7 +683,7 @@ public class Waas {
         // Return response as JSONObject
         return new JSONObject(response.toString());
     }
-    public static JSONObject billPayment(String bearerToken,String transaction_reference,String bill_ref_number,String beneficiary_account_number,String sasapay_bill_number,int amount,String merchant_code,int transaction_fee,String reason,String callBack_Url) throws Exception {
+    public  JSONObject billPayment(String bearerToken,String transaction_reference,String bill_ref_number,String beneficiary_account_number,String sasapay_bill_number,int amount,String merchant_code,int transaction_fee,String reason,String callBack_Url) throws Exception {
 
         String url = ApiUrls.bill_payment;
 
@@ -746,7 +746,7 @@ public class Waas {
         // Return response as JSONObject
         return new JSONObject(response.toString());
     }
-    public static JSONObject requestPayment(String bearerToken,String transaction_reference,String network_code,String mobile_number,String beneficiary_account_number,int amount,int transaction_fee,String merchant_code,String reason,String callBack_Url) throws Exception {
+    public  JSONObject requestPayment(String bearerToken,String transaction_reference,String network_code,String mobile_number,String beneficiary_account_number,int amount,int transaction_fee,String merchant_code,String reason,String callBack_Url) throws Exception {
 
         String url = ApiUrls.request_payment;
 
@@ -810,7 +810,7 @@ public class Waas {
         // Return response as JSONObject
         return new JSONObject(response.toString());
     }
-    public static JSONObject BeneficiaryToMerchant(String bearerToken,String transaction_reference,String merchant_code,String beneficiary_account_number,int amount,String reason,int transaction_fee,String callBack_Url) throws Exception {
+    public  JSONObject BeneficiaryToMerchant(String bearerToken,String transaction_reference,String merchant_code,String beneficiary_account_number,int amount,String reason,int transaction_fee,String callBack_Url) throws Exception {
 
         String url = ApiUrls.beneficiary_to_merchant;
 
@@ -871,7 +871,7 @@ public class Waas {
         // Return response as JSONObject
         return new JSONObject(response.toString());
     }
-    public static JSONObject merchantToBeneficiary(String bearerToken,String TransactionReference,String merchant_code,String beneficiary_account_number,int amount,String reason,  String callBack_Url) throws Exception {
+    public  JSONObject merchantToBeneficiary(String bearerToken,String TransactionReference,String merchant_code,String beneficiary_account_number,int amount,String reason,  String callBack_Url) throws Exception {
 
         String url = ApiUrls.merchant_to_beneficiary;
 
@@ -931,7 +931,7 @@ public class Waas {
         // Return response as JSONObject
         return new JSONObject(response.toString());
     }
-    public static JSONObject beneficiarySendToBank(String bearerToken,String transaction_reference,String beneficiary_accountNumber,String receiver_number,String channel_codes,int amount,String merchant_code,int transaction_fee,String callBack_Url) throws Exception {
+    public  JSONObject beneficiarySendToBank(String bearerToken,String transaction_reference,String beneficiary_accountNumber,String receiver_number,String channel_codes,int amount,String merchant_code,int transaction_fee,String callBack_Url) throws Exception {
 
         String url = ApiUrls.send_to_bank;
 
@@ -993,7 +993,7 @@ public class Waas {
         // Return response as JSONObject
         return new JSONObject(response.toString());
     }
-    public static JSONObject beneficiarySendToMobileMoney(String bearerToken,String transaction_reference,String beneficiary_account_number,String mobile_operator_number,String channel_code , int amount ,String merchant_code,int transaction_fee,String callBack_Url) throws Exception {
+    public  JSONObject beneficiarySendToMobileMoney(String bearerToken,String transaction_reference,String beneficiary_account_number,String mobile_operator_number,String channel_code , int amount ,String merchant_code,int transaction_fee,String callBack_Url) throws Exception {
 
         String url =ApiUrls.send_to_mobile_money;
 
@@ -1055,7 +1055,7 @@ public class Waas {
         // Return response as JSONObject
         return new JSONObject(response.toString());
     }
-    public static JSONObject beneficiarySendToBeneficiary(String bearerToken,String transaction_reference,String sender_beneficiary_accountNumber,String recipient_beneficiary_accountNumber,String amount,String merchant_code,String transaction_fee,String callBack_Url) throws Exception {
+    public  JSONObject beneficiarySendToBeneficiary(String bearerToken,String transaction_reference,String sender_beneficiary_accountNumber,String recipient_beneficiary_accountNumber,String amount,String merchant_code,String transaction_fee,String callBack_Url) throws Exception {
 
         String url = ApiUrls.beneficiary_send_to_beneficiary;
 
@@ -1116,7 +1116,7 @@ public class Waas {
         // Return response as JSONObject
         return new JSONObject(response.toString());
     }
-    public static JSONObject topUpBeneficiaryWallet(String bearerToken,String transaction_reference,String network_code,String mobile_number,String beneficiary_account_number,String amount,String transaction_fee,String merchant_code,String callBack_Url,String reason) throws Exception {
+    public  JSONObject topUpBeneficiaryWallet(String bearerToken,String transaction_reference,String network_code,String mobile_number,String beneficiary_account_number,String amount,String transaction_fee,String merchant_code,String callBack_Url,String reason) throws Exception {
 
         String url = ApiUrls.top_up_beneficiary_wallet;
 
@@ -1180,7 +1180,7 @@ public class Waas {
         // Return response as JSONObject
         return new JSONObject(response.toString());
     }
-    public static JSONObject viewMerchantBeneficiary(String bearerToken,String merchant_code) {
+    public  JSONObject viewMerchantBeneficiary(String bearerToken,String merchant_code) {
 
         String urlEndPoint = ApiUrls.view_merchant_beneficiaries+merchant_code;
 
@@ -1217,7 +1217,7 @@ public class Waas {
             return null;
         }
     }
-    public static JSONObject channelCodes(String bearerToken) {
+    public  JSONObject channelCodes(String bearerToken) {
 
         String apiEndpoint = ApiUrls.channel_code;
 
@@ -1256,7 +1256,7 @@ public class Waas {
         }
     }
 
-    public static JSONObject findNearestSasaPayAgent(String bearerToken,String Longitude,String Latitude ) {
+    public  JSONObject findNearestSasaPayAgent(String bearerToken,String Longitude,String Latitude ) {
 
         String urlEndpoint = ApiUrls.nearest_sasapay_agent+"Longitude="+Longitude+"&Latitude="+Latitude;
 
@@ -1294,7 +1294,7 @@ public class Waas {
             return null;
         }
     }
-    public static JSONObject queryMerchantAccountBalances(String bearerToken,String merchant_code) {
+    public  JSONObject queryMerchantAccountBalances(String bearerToken,String merchant_code) {
 
         String urlEndpoint = ApiUrls.query_merchants_balance+merchant_code;
 
@@ -1333,7 +1333,7 @@ public class Waas {
         }
     }
 
-    public static JSONObject amendBeneficiaryDetails(String bearerToken,String merchant_code,String first_name,String middle_name,String last_name, String document_type,String document_number,String email,String beneficiary_account_number) throws Exception {
+    public  JSONObject amendBeneficiaryDetails(String bearerToken,String merchant_code,String first_name,String middle_name,String last_name, String document_type,String document_number,String email,String beneficiary_account_number) throws Exception {
 
         String url = ApiUrls.amend_beneficiary_details;
 
@@ -1397,7 +1397,7 @@ public class Waas {
         return new JSONObject(response.toString());
     }
 
-    public static JSONObject beneficiaryOnboarding(String bearerToken,String merchant_code,String first_name,String middle_name,String last_name,String mobile_number,String document_type,String document_number,String email) throws Exception {
+    public  JSONObject beneficiaryOnboarding(String bearerToken,String merchant_code,String first_name,String middle_name,String last_name,String mobile_number,String document_type,String document_number,String email) throws Exception {
 
         String url = ApiUrls.beneficiary_onboarding;
 
@@ -1461,7 +1461,7 @@ public class Waas {
         return new JSONObject(response.toString());
     }
 
-    public static JSONObject beneficiaryOnboardingConfirm(String bearerToken,String merchant_code,String registration_request_Id,String confirmation_code) throws Exception {
+    public  JSONObject beneficiaryOnboardingConfirm(String bearerToken,String merchant_code,String registration_request_Id,String confirmation_code) throws Exception {
 
 
         String url = ApiUrls.beneficiary_onboarding_confirmation;
@@ -1520,7 +1520,7 @@ public class Waas {
         return new JSONObject(response.toString());
     }
 
-    public static JSONObject beneficiaryKycUpload(String bearerToken,String merchant_code,String passportPhoto_imagePath,String documentFront_imagePath,String documentBack_imagePath) throws Exception {
+    public  JSONObject beneficiaryKycUpload(String bearerToken,String merchant_code,String passportPhoto_imagePath,String documentFront_imagePath,String documentBack_imagePath) throws Exception {
 
         String url = ApiUrls.beneficiary_kyc_upload;
 
@@ -1583,7 +1583,7 @@ public class Waas {
         return new JSONObject(response.toString());
     }
 
-    public static JSONObject entityOnboarding(String bearerToken,String merchant_code,String business_name,String business_type,String kra_pin,String business_reg_no,String country_code,String mobile_number,String email ,String proposed_account_number,String call_BackURL) throws Exception {
+    public  JSONObject entityOnboarding(String bearerToken,String merchant_code,String business_name,String business_type,String kra_pin,String business_reg_no,String country_code,String mobile_number,String email ,String proposed_account_number,String call_BackURL) throws Exception {
 
         String url = ApiUrls.entity_onboarding;
 
@@ -1648,7 +1648,7 @@ public class Waas {
         return new JSONObject(response.toString());
     }
 
-    public static JSONObject entityOnboardingConfirm(String bearerToken,String merchant_code,String registration_request_Id,String confirmation_code) throws Exception {
+    public  JSONObject entityOnboardingConfirm(String bearerToken,String merchant_code,String registration_request_Id,String confirmation_code) throws Exception {
 
 
         String url = ApiUrls.entity_onboarding_confirm;
@@ -1707,7 +1707,7 @@ public class Waas {
         return new JSONObject(response.toString());
     }
 
-    public static JSONObject entityKycUpload(String bearerToken,String merchant_code,String entity_account_number,String kraPinCert_imagePath,String businessRegCert_imagePath) throws Exception {
+    public  JSONObject entityKycUpload(String bearerToken,String merchant_code,String entity_account_number,String kraPinCert_imagePath,String businessRegCert_imagePath) throws Exception {
 
         String url = ApiUrls.entity_kyc_upload;
 
@@ -1769,8 +1769,8 @@ public class Waas {
         return new JSONObject(response.toString());
     }
     //Authentication
-    @NotNull
-    public static JSONObject getWaasAccessToken(String clientId,String clientSecret) throws Exception {
+
+    public  JSONObject getWaasAccessToken(String clientId,String clientSecret) throws Exception {
         String tokenUrl = ApiUrls.waas_auth;
 
         HttpURLConnection conn = (HttpURLConnection) new URL(tokenUrl).openConnection();

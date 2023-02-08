@@ -17,7 +17,7 @@ import java.util.Scanner;
 public class SasaPay {
 
     //SASAPAY PRODUCTS
-    public static JSONObject queryMerchantAccountBalance(String bearerToken, String merchant_code) {
+    public  JSONObject queryMerchantAccountBalance(String bearerToken, String merchant_code) {
         String endpoint_url = ApiUrls.query_merchant_balance + merchant_code;
         try {
             URL url = new URL(endpoint_url);
@@ -53,7 +53,7 @@ public class SasaPay {
         }
     }
 
-    public static JSONObject verifyTransaction(String bearerToken, String merchant_code, String transaction_code) throws Exception {
+    public  JSONObject verifyTransaction(String bearerToken, String merchant_code, String transaction_code) throws Exception {
         String url = ApiUrls.verify_transaction;
         Map<String, Object> body = Map.of(
                 "MerchantCode", merchant_code,
@@ -106,7 +106,7 @@ public class SasaPay {
         return new JSONObject(response.toString());
     }
 
-    public static JSONObject checkTransactionStatus(String bearerToken, String merchant_code, String checkout_request_id) throws Exception {
+    public  JSONObject checkTransactionStatus(String bearerToken, String merchant_code, String checkout_request_id) throws Exception {
         String url = ApiUrls.check_transaction_status;
         Map<String, Object> body = Map.of(
                 "MerchantCode", merchant_code,
@@ -160,7 +160,7 @@ public class SasaPay {
         return new JSONObject(response.toString());
     }
 
-    public static JSONObject businessToBusiness(String bearerToken, String merchant_code, String merchant_transaction_reference, int amount, String receiver_merchant_code, String callBack_URL, String descriptions) throws Exception {
+    public  JSONObject businessToBusiness(String bearerToken, String merchant_code, String merchant_transaction_reference, int amount, String receiver_merchant_code, String callBack_URL, String descriptions) throws Exception {
 
         Random rand = new Random();
         int number = rand.nextInt(100);
@@ -222,7 +222,7 @@ public class SasaPay {
         return new JSONObject(response.toString());
     }
 
-    public static JSONObject businessToBeneficiary(String bearerToken, String transaction_reference, String sender_merchant_code, String receiver_merchant_code, String beneficiary_account_number, int amount, int transaction_fee, String descriptions, String callBack_URL) throws Exception {
+    public  JSONObject businessToBeneficiary(String bearerToken, String transaction_reference, String sender_merchant_code, String receiver_merchant_code, String beneficiary_account_number, int amount, int transaction_fee, String descriptions, String callBack_URL) throws Exception {
 
         // NetworkCodes   SasaPay(0) 63902(MPesa) 63903(AirtelMoney) 63907(T-Kash)
         Random rand = new Random();
@@ -287,7 +287,7 @@ public class SasaPay {
         return new JSONObject(response.toString());
     }
 
-    public static JSONObject businessToCustomer(String bearerToken, String merchant_code, int amount, String merchant_transaction_reference, String receiver_number, String channel_code, String descriptions, String call_backUrl) throws Exception {
+    public  JSONObject businessToCustomer(String bearerToken, String merchant_code, int amount, String merchant_transaction_reference, String receiver_number, String channel_code, String descriptions, String call_backUrl) throws Exception {
 
         // NetworkCodes   SasaPay(0) 63902(MPesa) 63903(AirtelMoney) 63907(T-Kash)
         Random rand = new Random();
@@ -352,7 +352,7 @@ public class SasaPay {
         return new JSONObject(response.toString());
     }
 
-    public static JSONObject customerToBusiness(String bearerToken, String merchant_code, String network_code, String phone_number, String transaction_desc, String account_reference, int amount, String callback_URL) throws Exception {
+    public  JSONObject customerToBusiness(String bearerToken, String merchant_code, String network_code, String phone_number, String transaction_desc, String account_reference, int amount, String callback_URL) throws Exception {
 
         // NetworkCodes   SasaPay(0) 63902(MPesa) 63903(AirtelMoney) 63907(T-Kash)
 //        Random rand = new Random();
@@ -415,7 +415,7 @@ public class SasaPay {
         return new JSONObject(response.toString());
     }
 
-    public static JSONObject customerToBusinessAliasNumber(String bearerToken,String merchant_code,String alias_number,String transaction_desc,String account_reference,String amount,String transaction_fee,String call_BackURL) throws Exception {
+    public  JSONObject customerToBusinessAliasNumber(String bearerToken,String merchant_code,String alias_number,String transaction_desc,String account_reference,String amount,String transaction_fee,String call_BackURL) throws Exception {
 
         String url = ApiUrls.customer_to_business_alias;
 
@@ -478,7 +478,7 @@ public class SasaPay {
         return new JSONObject(response.toString());
     }
 
-    public static JSONObject ProcessPayment(String bearerToken,String merchant_code,String verification_code) throws Exception {
+    public  JSONObject ProcessPayment(String bearerToken,String merchant_code,String verification_code) throws Exception {
 
         String url = ApiUrls.process_payment;
 
@@ -534,7 +534,7 @@ public class SasaPay {
         return new JSONObject(response.toString());
     }
 
-    public static JSONObject registerCallbackUrl(String bearerToken, int merchant_code, String confirmation_url) throws Exception {
+    public  JSONObject registerCallbackUrl(String bearerToken, int merchant_code, String confirmation_url) throws Exception {
         String api_endpoint = ApiUrls.cfn_callbackURL_reg;
 
         Map<String, Object> body = Map.of(
@@ -590,7 +590,7 @@ public class SasaPay {
     }
 
     //Authentication
-    public static JSONObject getAccessToken(String client_Id, String client_Secret) throws Exception {
+    public  JSONObject getAccessToken(String client_Id, String client_Secret) throws Exception {
         String tokenUrl = ApiUrls.sasapay_auth_url;
 
 //        String clientId = "YQtaz0efSJTH1tAF6s9rXBsiEcl0yXXruPeV9yUb";
