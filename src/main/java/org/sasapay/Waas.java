@@ -1924,7 +1924,7 @@ public class Waas {
             String encoded = Base64.getEncoder().encodeToString((clientId + ":" + clientSecret).getBytes());
             conn.setRequestProperty("Authorization", "Basic " + encoded);
             conn.setRequestMethod("GET");
-            conn.setDoOutput(true);
+           // conn.setDoOutput(true);
 
             if (conn.getResponseCode() != 200) {
                 InputStream errorStream = conn.getErrorStream();

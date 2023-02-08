@@ -651,16 +651,13 @@ public class SasaPay {
     public  JSONObject getAccessToken(String client_Id, String client_Secret) {
         String tokenUrl = ApiUrls.sasapay_auth_url;
 
-//        String clientId = "YQtaz0efSJTH1tAF6s9rXBsiEcl0yXXruPeV9yUb";
-//        String clientSecret = "XiO9o6O6XMvKCOQKCsHxES997bxp55qFQS0AEZv6k5kseUCBtkHsr5rFOp5jB4gcyEzRvCY15PhEyUQUqH9LEo2l7lggkfEX3IGkDwkg8ht0fN3u23e2cm64SeFEqjNR";
-        
         try {
             HttpURLConnection conn = (HttpURLConnection) new URL(tokenUrl).openConnection();
 
             String encoded = Base64.getEncoder().encodeToString((client_Id + ":" + client_Secret).getBytes());
             conn.setRequestProperty("Authorization", "Basic " + encoded);
             conn.setRequestMethod("GET");
-            conn.setDoOutput(true);
+//            conn.setDoOutput(true);
 
             if (conn.getResponseCode() != 200) {
                 InputStream errorStream = conn.getErrorStream();
