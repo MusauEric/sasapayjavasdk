@@ -11,83 +11,43 @@ import java.util.Map;
 import java.util.Scanner;
 import java.util.concurrent.TimeUnit;
 
-public class Waas  {
+public class Waas {
 
     //WAAS PRODUCTS
 
-    public  JSONObject purchaseKPLCtoken(String bearerToken,String merchant_code,String meter_number, String beneficiary_account_number, String mobile_number ,int amount ,String callBackUrl) throws Exception {
-
-        try{
+    public JSONObject purchaseKPLCtoken(String bearerToken, String merchant_code, String meter_number, String beneficiary_account_number, String mobile_number, int amount, String callBackUrl) {
+        try {
             String url = ApiUrls.purchase_kplc;
 
             Map<String, Object> body = Map.of(
-                    "MerchantCode",  merchant_code,
+                    "MerchantCode", merchant_code,
                     "MeterNumber", meter_number,
                     "BeneficiaryAccountNumber", beneficiary_account_number,
                     "MobileNumber", mobile_number,
                     "Amount", amount,
                     "CallBackUrl", callBackUrl
-
             );
 
-            URL obj = new URL(url);
-            HttpURLConnection con = (HttpURLConnection) obj.openConnection();
+            Network jsonThread = new Network(url, bearerToken, body, 1);
+            Thread thread = new Thread(jsonThread);
+            thread.start();
+            thread.join();
 
-            // Set request method
-            con.setRequestMethod("POST");
-
-            // Add bearer token to authorization header
-            con.setRequestProperty("Authorization", "Bearer " + bearerToken);
-
-            // Set request content type
-            con.setRequestProperty("Content-Type", "application/json");
-
-            // Set request body
-            JSONObject jsonObject = new JSONObject(body);
-            String requestBody = jsonObject.toString();
-
-            // Send post request
-            con.setDoOutput(true);
-            DataOutputStream out = new DataOutputStream(con.getOutputStream());
-            out.writeBytes(requestBody);
-            out.flush();
-            out.close();
-
-            int responseCode = con.getResponseCode();
-            if (responseCode != 200) {
-                InputStream errorStream = con.getErrorStream();
-                // Read the error stream into a string
-                String errorString = new Scanner(errorStream, "UTF-8").useDelimiter("\\Z").next();
-                // Parse the error string as JSON
-                JSONObject errorJson = new JSONObject(errorString);
-                // Extract the error message from the JSON object
-//            String errorMessage = errorJson.getString("error_message");
-                return errorJson;
-            }else {
-                // Get response
-                BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
-                String inputLine;
-                StringBuilder response = new StringBuilder();
-                while ((inputLine = in.readLine()) != null) {
-                    response.append(inputLine);
-                }
-                in.close();
-
-                // Return response as JSONObject
-                return new JSONObject(response.toString());
-            }
-
-        }catch (Exception e){
+            JSONObject result = jsonThread.postResult();
+            System.out.println(result);
+            return result;
+        } catch (InterruptedException e) {
+            e.printStackTrace();
             return null;
         }
-
     }
-    public  JSONObject tvPayment(String bearerToken,String merchant_code,String service_code,String account_number,String beneficiary_account_number,String mobile_number,String amount,String callBack_Url) throws Exception {
 
-        try{
+    public JSONObject tvPayment(String bearerToken, String merchant_code, String service_code, String account_number, String beneficiary_account_number, String mobile_number, String amount, String callBack_Url) {
+
+        try {
             String url = ApiUrls.tv_payment;
             Map<String, Object> body = Map.of(
-                    "MerchantCode",  merchant_code,
+                    "MerchantCode", merchant_code,
                     "ServiceCode", service_code,
                     "AccountNumber", account_number,
                     "BeneficiaryAccountNumber", beneficiary_account_number,
@@ -97,63 +57,28 @@ public class Waas  {
 
             );
 
-            URL obj = new URL(url);
-            HttpURLConnection con = (HttpURLConnection) obj.openConnection();
+            Network jsonThread = new Network(url, bearerToken, body, 1);
+            Thread thread = new Thread(jsonThread);
+            thread.start();
+            thread.join();
 
-            // Set request method
-            con.setRequestMethod("POST");
-
-            // Add bearer token to authorization header
-            con.setRequestProperty("Authorization", "Bearer " + bearerToken);
-
-            // Set request content type
-            con.setRequestProperty("Content-Type", "application/json");
-
-            // Set request body
-            JSONObject jsonObject = new JSONObject(body);
-            String requestBody = jsonObject.toString();
-
-            // Send post request
-            con.setDoOutput(true);
-            DataOutputStream out = new DataOutputStream(con.getOutputStream());
-            out.writeBytes(requestBody);
-            out.flush();
-            out.close();
-
-            int responseCode = con.getResponseCode();
-            if (responseCode != 200) {
-                InputStream errorStream = con.getErrorStream();
-                // Read the error stream into a string
-                String errorString = new Scanner(errorStream, "UTF-8").useDelimiter("\\Z").next();
-                // Parse the error string as JSON
-                JSONObject errorJson = new JSONObject(errorString);
-                // Extract the error message from the JSON object
-//            String errorMessage = errorJson.getString("error_message");
-                return errorJson;
-            }else {
-                // Get response
-                BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
-                String inputLine;
-                StringBuilder response = new StringBuilder();
-                while ((inputLine = in.readLine()) != null) {
-                    response.append(inputLine);
-                }
-                in.close();
-
-                // Return response as JSONObject
-                return new JSONObject(response.toString());
-            }
-        }catch (Exception e){
+            JSONObject result = jsonThread.postResult();
+            System.out.println(result);
+            return result;
+        } catch (InterruptedException e) {
+            e.printStackTrace();
             return null;
         }
-
     }
-    public  JSONObject postPaidBillPayments(String bearerToken,String merchant_code,String service_code,String beneficiary_account_number,String account_number,String mobile_number,int amount,String callBack_Url) throws Exception {
-        try{
+
+
+    public JSONObject postPaidBillPayments(String bearerToken, String merchant_code, String service_code, String beneficiary_account_number, String account_number, String mobile_number, int amount, String callBack_Url) {
+
+        try {
             String url = ApiUrls.post_paid_pay_bill;
 
             Map<String, Object> body = Map.of(
-                    "MerchantCode",  merchant_code,
+                    "MerchantCode", merchant_code,
                     "ServiceCode", service_code,
                     "BeneficiaryAccountNumber", beneficiary_account_number,
                     "AccountNumber", account_number,
@@ -163,126 +88,52 @@ public class Waas  {
 
             );
 
-            URL obj = new URL(url);
-            HttpURLConnection con = (HttpURLConnection) obj.openConnection();
+            Network jsonThread = new Network(url, bearerToken, body, 1);
+            Thread thread = new Thread(jsonThread);
+            thread.start();
+            thread.join();
 
-            // Set request method
-            con.setRequestMethod("POST");
-
-            // Add bearer token to authorization header
-            con.setRequestProperty("Authorization", "Bearer " + bearerToken);
-
-            // Set request content type
-            con.setRequestProperty("Content-Type", "application/json");
-
-            // Set request body
-            JSONObject jsonObject = new JSONObject(body);
-            String requestBody = jsonObject.toString();
-
-            // Send post request
-            con.setDoOutput(true);
-            DataOutputStream out = new DataOutputStream(con.getOutputStream());
-            out.writeBytes(requestBody);
-            out.flush();
-            out.close();
-
-            int responseCode = con.getResponseCode();
-            if (responseCode != 200) {
-                InputStream errorStream = con.getErrorStream();
-                // Read the error stream into a string
-                String errorString = new Scanner(errorStream, "UTF-8").useDelimiter("\\Z").next();
-                // Parse the error string as JSON
-                JSONObject errorJson = new JSONObject(errorString);
-                // Extract the error message from the JSON object
-//            String errorMessage = errorJson.getString("error_message");
-                return errorJson;
-            }else{
-                // Get response
-                BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
-                String inputLine;
-                StringBuilder response = new StringBuilder();
-                while ((inputLine = in.readLine()) != null) {
-                    response.append(inputLine);
-                }
-                in.close();
-
-                // Return response as JSONObject
-                return new JSONObject(response.toString());
-            }
-
-        }catch (Exception e){
+            JSONObject result = jsonThread.postResult();
+            System.out.println(result);
+            return result;
+        } catch (InterruptedException e) {
+            e.printStackTrace();
             return null;
         }
 
     }
-    public  JSONObject purchaseAirtime(String bearerToken,String merchant_code,String beneficiary_account_number,String mobile_number,int amount,String callBack_Url) throws Exception {
-        try{
 
+    public JSONObject purchaseAirtime(String bearerToken, String merchant_code, String beneficiary_account_number, String mobile_number, int amount, String callBack_Url) {
+
+        try {
             String url = ApiUrls.purchase_airtime;
 
             Map<String, Object> body = Map.of(
-                    "MerchantCode",  merchant_code,
+                    "MerchantCode", merchant_code,
                     "BeneficiaryAccountNumber", beneficiary_account_number,
                     "MobileNumber", mobile_number,
                     "Amount", amount,
                     "CallBackUrl", callBack_Url
 
             );
+            Network jsonThread = new Network(url, bearerToken, body, 1);
+            Thread thread = new Thread(jsonThread);
+            thread.start();
+            thread.join();
 
-            URL obj = new URL(url);
-            HttpURLConnection con = (HttpURLConnection) obj.openConnection();
-
-            // Set request method
-            con.setRequestMethod("POST");
-
-            // Add bearer token to authorization header
-            con.setRequestProperty("Authorization", "Bearer " + bearerToken);
-
-            // Set request content type
-            con.setRequestProperty("Content-Type", "application/json");
-
-            // Set request body
-            JSONObject jsonObject = new JSONObject(body);
-            String requestBody = jsonObject.toString();
-
-            // Send post request
-            con.setDoOutput(true);
-            DataOutputStream out = new DataOutputStream(con.getOutputStream());
-            out.writeBytes(requestBody);
-            out.flush();
-            out.close();
-
-            int responseCode = con.getResponseCode();
-            if (responseCode != 200) {
-                InputStream errorStream = con.getErrorStream();
-                // Read the error stream into a string
-                String errorString = new Scanner(errorStream, "UTF-8").useDelimiter("\\Z").next();
-                // Parse the error string as JSON
-                JSONObject errorJson = new JSONObject(errorString);
-                // Extract the error message from the JSON object
-//            String errorMessage = errorJson.getString("error_message");
-                return errorJson;
-            }else {
-                // Get response
-                BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
-                String inputLine;
-                StringBuilder response = new StringBuilder();
-                while ((inputLine = in.readLine()) != null) {
-                    response.append(inputLine);
-                }
-                in.close();
-                // Return response as JSONObject
-                return new JSONObject(response.toString());
-            }
-
-        }catch (Exception e){
+            JSONObject result = jsonThread.postResult();
+            System.out.println(result);
+            return result;
+        } catch (InterruptedException e) {
+            e.printStackTrace();
             return null;
         }
 
     }
-    public  JSONObject redeemLoyaltyPoint(String bearerToken,String transaction_reference,String beneficiary_account_number,int points,int transaction_fee,String merchant_code,String callBack_Url,String reason) throws Exception {
-        try{
 
+    public JSONObject redeemLoyaltyPoint(String bearerToken, String transaction_reference, String beneficiary_account_number, int points, int transaction_fee, String merchant_code, String callBack_Url, String reason) {
+
+        try {
             String url = ApiUrls.redeem_loyalty_points;
 
             Map<String, Object> body = Map.of(
@@ -290,66 +141,29 @@ public class Waas  {
                     "BeneficiaryAccountNumber", beneficiary_account_number,
                     "Points", points,
                     "TransactionFee", transaction_fee,
-                    "MerchantCode",  merchant_code,
+                    "MerchantCode", merchant_code,
                     "CallBackUrl", callBack_Url,
                     "Reason", reason
             );
+            Network jsonThread = new Network(url, bearerToken, body, 1);
+            Thread thread = new Thread(jsonThread);
+            thread.start();
+            thread.join();
 
-            URL obj = new URL(url);
-            HttpURLConnection con = (HttpURLConnection) obj.openConnection();
-
-            // Set request method
-            con.setRequestMethod("POST");
-
-            // Add bearer token to authorization header
-            con.setRequestProperty("Authorization", "Bearer " + bearerToken);
-
-            // Set request content type
-            con.setRequestProperty("Content-Type", "application/json");
-
-            // Set request body
-            JSONObject jsonObject = new JSONObject(body);
-            String requestBody = jsonObject.toString();
-
-            // Send post request
-            con.setDoOutput(true);
-            DataOutputStream out = new DataOutputStream(con.getOutputStream());
-            out.writeBytes(requestBody);
-            out.flush();
-            out.close();
-
-            int responseCode = con.getResponseCode();
-            if (responseCode != 200) {
-                InputStream errorStream = con.getErrorStream();
-                // Read the error stream into a string
-                String errorString = new Scanner(errorStream, "UTF-8").useDelimiter("\\Z").next();
-                // Parse the error string as JSON
-                JSONObject errorJson = new JSONObject(errorString);
-                // Extract the error message from the JSON object
-//            String errorMessage = errorJson.getString("error_message");
-                return errorJson;
-            }else {
-                // Get response
-                BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
-                String inputLine;
-                StringBuilder response = new StringBuilder();
-                while ((inputLine = in.readLine()) != null) {
-                    response.append(inputLine);
-                }
-                in.close();
-
-                // Return response as JSONObject
-                return new JSONObject(response.toString());
-            }
-
-        }catch (Exception e){
+            JSONObject result = jsonThread.postResult();
+            System.out.println(result);
+            return result;
+        } catch (InterruptedException e) {
+            e.printStackTrace();
             return null;
         }
 
-    }
-    public  JSONObject transferPointToMerchantsAccount(String bearerToken,String transaction_reference,String beneficiary_account_number,int points,int transaction_fee,String merchant_code,String callBack_Url,String reason) throws Exception {
-        try{
 
+    }
+
+    public JSONObject transferPointToMerchantsAccount(String bearerToken, String transaction_reference, String beneficiary_account_number, int points, int transaction_fee, String merchant_code, String callBack_Url, String reason) {
+
+        try {
             String url = ApiUrls.transfer_point_to_merchant;
 
             Map<String, Object> body = Map.of(
@@ -357,67 +171,29 @@ public class Waas  {
                     "BeneficiaryAccountNumber", beneficiary_account_number,
                     "Points", points,
                     "TransactionFee", transaction_fee,
-                    "MerchantCode",  merchant_code,
+                    "MerchantCode", merchant_code,
                     "CallBackUrl", callBack_Url,
                     "Reason", reason
             );
+            Network jsonThread = new Network(url, bearerToken, body, 1);
+            Thread thread = new Thread(jsonThread);
+            thread.start();
+            thread.join();
 
-            URL obj = new URL(url);
-            HttpURLConnection con = (HttpURLConnection) obj.openConnection();
-
-            // Set request method
-            con.setRequestMethod("POST");
-
-            // Add bearer token to authorization header
-            con.setRequestProperty("Authorization", "Bearer " + bearerToken);
-
-            // Set request content type
-            con.setRequestProperty("Content-Type", "application/json");
-
-            // Set request body
-            JSONObject jsonObject = new JSONObject(body);
-            String requestBody = jsonObject.toString();
-
-            // Send post request
-            con.setDoOutput(true);
-            DataOutputStream out = new DataOutputStream(con.getOutputStream());
-            out.writeBytes(requestBody);
-            out.flush();
-            out.close();
-
-            int responseCode = con.getResponseCode();
-            if (responseCode != 200) {
-                InputStream errorStream = con.getErrorStream();
-                // Read the error stream into a string
-                String errorString = new Scanner(errorStream, "UTF-8").useDelimiter("\\Z").next();
-                // Parse the error string as JSON
-                JSONObject errorJson = new JSONObject(errorString);
-                // Extract the error message from the JSON object
-//            String errorMessage = errorJson.getString("error_message");
-                return errorJson;
-            }else {
-                // Get response
-                BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
-                String inputLine;
-                StringBuilder response = new StringBuilder();
-                while ((inputLine = in.readLine()) != null) {
-                    response.append(inputLine);
-                }
-                in.close();
-
-                // Return response as JSONObject
-                return new JSONObject(response.toString());
-
-            }
-
-        }catch (Exception e){
+            JSONObject result = jsonThread.postResult();
+            System.out.println(result);
+            return result;
+        } catch (InterruptedException e) {
+            e.printStackTrace();
             return null;
         }
 
-    }
-    public  JSONObject topUpBeneficiaryPoint(String bearerToken,String transaction_reference,String beneficiary_account_number,int points, int transaction_fee,String callBack_Url,String reason) throws Exception {
-        try{
 
+    }
+
+    public JSONObject topUpBeneficiaryPoint(String bearerToken, String transaction_reference, String beneficiary_account_number, int points, int transaction_fee, String callBack_Url, String reason) {
+
+        try {
             String url = ApiUrls.top_up_beneficiary_point;
 
             Map<String, Object> body = Map.of(
@@ -429,61 +205,24 @@ public class Waas  {
                     "Reason", reason
 
             );
+            Network jsonThread = new Network(url, bearerToken, body, 1);
+            Thread thread = new Thread(jsonThread);
+            thread.start();
+            thread.join();
 
-            URL obj = new URL(url);
-            HttpURLConnection con = (HttpURLConnection) obj.openConnection();
-
-            // Set request method
-            con.setRequestMethod("POST");
-
-            // Add bearer token to authorization header
-            con.setRequestProperty("Authorization", "Bearer " + bearerToken);
-
-            // Set request content type
-            con.setRequestProperty("Content-Type", "application/json");
-
-            // Set request body
-            JSONObject jsonObject = new JSONObject(body);
-            String requestBody = jsonObject.toString();
-
-            // Send post request
-            con.setDoOutput(true);
-            DataOutputStream out = new DataOutputStream(con.getOutputStream());
-            out.writeBytes(requestBody);
-            out.flush();
-            out.close();
-
-            int responseCode = con.getResponseCode();
-            if (responseCode != 200) {
-                InputStream errorStream = con.getErrorStream();
-                // Read the error stream into a string
-                String errorString = new Scanner(errorStream, "UTF-8").useDelimiter("\\Z").next();
-                // Parse the error string as JSON
-                JSONObject errorJson = new JSONObject(errorString);
-                // Extract the error message from the JSON object
-//            String errorMessage = errorJson.getString("error_message");
-                return errorJson;
-            }else{
-                // Get response
-                BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
-                String inputLine;
-                StringBuilder response = new StringBuilder();
-                while ((inputLine = in.readLine()) != null) {
-                    response.append(inputLine);
-                }
-                in.close();
-
-                // Return response as JSONObject
-                return new JSONObject(response.toString());
-            }
-
-        }catch (Exception e){
+            JSONObject result = jsonThread.postResult();
+            System.out.println(result);
+            return result;
+        } catch (InterruptedException e) {
+            e.printStackTrace();
             return null;
         }
 
     }
-    public  JSONObject sharePointToOtherBeneficiary(String bearerToken,String transaction_reference,String sender_beneficiary_account_number,String recipient_beneficiary_account_number,String merchant_code,int points,int transaction_fee,String reason,String callBack_Url) throws Exception {
-        try{
+
+    public JSONObject sharePointToOtherBeneficiary(String bearerToken, String transaction_reference, String sender_beneficiary_account_number, String recipient_beneficiary_account_number, String merchant_code, int points, int transaction_fee, String reason, String callBack_Url) {
+
+        try {
             String url = ApiUrls.share_points_to_beneficiaries;
 
             Map<String, Object> body = Map.of(
@@ -496,62 +235,23 @@ public class Waas  {
                     "Reason", reason,
                     "CallBackUrl", callBack_Url
             );
+            Network jsonThread = new Network(url, bearerToken, body, 1);
+            Thread thread = new Thread(jsonThread);
+            thread.start();
+            thread.join();
 
-            URL obj = new URL(url);
-            HttpURLConnection con = (HttpURLConnection) obj.openConnection();
-
-            // Set request method
-            con.setRequestMethod("POST");
-
-            // Add bearer token to authorization header
-            con.setRequestProperty("Authorization", "Bearer " + bearerToken);
-
-            // Set request content type
-            con.setRequestProperty("Content-Type", "application/json");
-
-            // Set request body
-            JSONObject jsonObject = new JSONObject(body);
-            String requestBody = jsonObject.toString();
-
-            // Send post request
-            con.setDoOutput(true);
-            DataOutputStream out = new DataOutputStream(con.getOutputStream());
-            out.writeBytes(requestBody);
-            out.flush();
-            out.close();
-
-            int responseCode = con.getResponseCode();
-            if (responseCode != 200) {
-                InputStream errorStream = con.getErrorStream();
-                // Read the error stream into a string
-                String errorString = new Scanner(errorStream, "UTF-8").useDelimiter("\\Z").next();
-                // Parse the error string as JSON
-                JSONObject errorJson = new JSONObject(errorString);
-                // Extract the error message from the JSON object
-//            String errorMessage = errorJson.getString("error_message");
-                return errorJson;
-            }else {
-                // Get response
-                BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
-                String inputLine;
-                StringBuilder response = new StringBuilder();
-                while ((inputLine = in.readLine()) != null) {
-                    response.append(inputLine);
-                }
-                in.close();
-
-                // Return response as JSONObject
-                return new JSONObject(response.toString());
-            }
-
-        }catch (Exception e){
+            JSONObject result = jsonThread.postResult();
+            System.out.println(result);
+            return result;
+        } catch (InterruptedException e) {
+            e.printStackTrace();
             return null;
         }
 
     }
-    public  JSONObject queryTransactionStatus(String bearerToken,String merchant_code,String transaction_Reference) throws Exception {
-        try{
 
+    public JSONObject queryTransactionStatus(String bearerToken, String merchant_code, String transaction_Reference) {
+        try {
             String url = ApiUrls.query_transaction_status;
 
             Map<String, Object> body = Map.of(
@@ -559,60 +259,24 @@ public class Waas  {
                     "TransactionReference", transaction_Reference
             );
 
-            URL obj = new URL(url);
-            HttpURLConnection con = (HttpURLConnection) obj.openConnection();
+            Network jsonThread = new Network(url, bearerToken, body, 1);
+            Thread thread = new Thread(jsonThread);
+            thread.start();
+            thread.join();
 
-            // Set request method
-            con.setRequestMethod("POST");
-
-            // Add bearer token to authorization header
-            con.setRequestProperty("Authorization", "Bearer " + bearerToken);
-
-            // Set request content type
-            con.setRequestProperty("Content-Type", "application/json");
-
-            // Set request body
-            JSONObject jsonObject = new JSONObject(body);
-            String requestBody = jsonObject.toString();
-
-            // Send post request
-            con.setDoOutput(true);
-            DataOutputStream out = new DataOutputStream(con.getOutputStream());
-            out.writeBytes(requestBody);
-            out.flush();
-            out.close();
-
-            int responseCode = con.getResponseCode();
-            if (responseCode != 200) {
-                InputStream errorStream = con.getErrorStream();
-                // Read the error stream into a string
-                String errorString = new Scanner(errorStream, "UTF-8").useDelimiter("\\Z").next();
-                // Parse the error string as JSON
-                JSONObject errorJson = new JSONObject(errorString);
-                // Extract the error message from the JSON object
-//            String errorMessage = errorJson.getString("error_message");
-                return errorJson;
-            }else{
-                // Get response
-                BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
-                String inputLine;
-                StringBuilder response = new StringBuilder();
-                while ((inputLine = in.readLine()) != null) {
-                    response.append(inputLine);
-                }
-                in.close();
-
-                // Return response as JSONObject
-                return new JSONObject(response.toString());
-            }
-
-        }catch (Exception e){
+            JSONObject result = jsonThread.postResult();
+            System.out.println(result);
+            return result;
+        } catch (InterruptedException e) {
+            e.printStackTrace();
             return null;
         }
 
     }
-    public  JSONObject lipaFare(String bearerToken,String transaction_reference,String beneficiary_account_number,int matatu_bill_number,String amount,int merchant_code,String transaction_fee,String reason ,String callBack_Url) throws Exception {
-        try{
+
+    public JSONObject lipaFare(String bearerToken, String transaction_reference, String beneficiary_account_number, int matatu_bill_number, String amount, int merchant_code, String transaction_fee, String reason, String callBack_Url) {
+
+        try {
             String url = ApiUrls.lipa_fare;
 
             Map<String, Object> body = Map.of(
@@ -625,61 +289,24 @@ public class Waas  {
                     "Reason", reason,
                     "CallBackUrl", callBack_Url
             );
+            Network jsonThread = new Network(url, bearerToken, body, 1);
+            Thread thread = new Thread(jsonThread);
+            thread.start();
+            thread.join();
 
-            URL obj = new URL(url);
-            HttpURLConnection con = (HttpURLConnection) obj.openConnection();
-
-            // Set request method
-            con.setRequestMethod("POST");
-
-            // Add bearer token to authorization header
-            con.setRequestProperty("Authorization", "Bearer " + bearerToken);
-
-            // Set request content type
-            con.setRequestProperty("Content-Type", "application/json");
-
-            // Set request body
-            JSONObject jsonObject = new JSONObject(body);
-            String requestBody = jsonObject.toString();
-
-            // Send post request
-            con.setDoOutput(true);
-            DataOutputStream out = new DataOutputStream(con.getOutputStream());
-            out.writeBytes(requestBody);
-            out.flush();
-            out.close();
-
-            int responseCode = con.getResponseCode();
-            if (responseCode != 200) {
-                InputStream errorStream = con.getErrorStream();
-                // Read the error stream into a string
-                String errorString = new Scanner(errorStream, "UTF-8").useDelimiter("\\Z").next();
-                // Parse the error string as JSON
-                JSONObject errorJson = new JSONObject(errorString);
-                // Extract the error message from the JSON object
-//            String errorMessage = errorJson.getString("error_message");
-                return errorJson;
-            }else {
-                // Get response
-                BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
-                String inputLine;
-                StringBuilder response = new StringBuilder();
-                while ((inputLine = in.readLine()) != null) {
-                    response.append(inputLine);
-                }
-                in.close();
-
-                // Return response as JSONObject
-                return new JSONObject(response.toString());
-            }
-
-        }catch (Exception e){
+            JSONObject result = jsonThread.postResult();
+            System.out.println(result);
+            return result;
+        } catch (InterruptedException e) {
+            e.printStackTrace();
             return null;
         }
 
     }
-    public  JSONObject tillPayment(String bearerToken,String transaction_reference,String beneficiary_account_number,int sasapay_bill_number,int amount,int merchant_code,int transaction_fee,String reason,String callBack_Url) throws Exception {
-        try{
+
+    public JSONObject tillPayment(String bearerToken, String transaction_reference, String beneficiary_account_number, int sasapay_bill_number, int amount, int merchant_code, int transaction_fee, String reason, String callBack_Url) {
+
+        try {
             String url = ApiUrls.till_payment;
 
             Map<String, Object> body = Map.of(
@@ -692,62 +319,25 @@ public class Waas  {
                     "Reason", reason,
                     "CallBackUrl", callBack_Url
             );
+            Network jsonThread = new Network(url, bearerToken, body, 1);
+            Thread thread = new Thread(jsonThread);
+            thread.start();
+            thread.join();
 
-            URL obj = new URL(url);
-            HttpURLConnection con = (HttpURLConnection) obj.openConnection();
-
-            // Set request method
-            con.setRequestMethod("POST");
-
-            // Add bearer token to authorization header
-            con.setRequestProperty("Authorization", "Bearer " + bearerToken);
-
-            // Set request content type
-            con.setRequestProperty("Content-Type", "application/json");
-
-            // Set request body
-            JSONObject jsonObject = new JSONObject(body);
-            String requestBody = jsonObject.toString();
-
-            // Send post request
-            con.setDoOutput(true);
-            DataOutputStream out = new DataOutputStream(con.getOutputStream());
-            out.writeBytes(requestBody);
-            out.flush();
-            out.close();
-
-            int responseCode = con.getResponseCode();
-            if (responseCode != 200) {
-                InputStream errorStream = con.getErrorStream();
-                // Read the error stream into a string
-                String errorString = new Scanner(errorStream, "UTF-8").useDelimiter("\\Z").next();
-                // Parse the error string as JSON
-                JSONObject errorJson = new JSONObject(errorString);
-                // Extract the error message from the JSON object
-//            String errorMessage = errorJson.getString("error_message");
-                return errorJson;
-            }else {
-                // Get response
-                BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
-                String inputLine;
-                StringBuilder response = new StringBuilder();
-                while ((inputLine = in.readLine()) != null) {
-                    response.append(inputLine);
-                }
-                in.close();
-
-                // Return response as JSONObject
-                return new JSONObject(response.toString());
-            }
-
-        }catch (Exception e){
+            JSONObject result = jsonThread.postResult();
+            System.out.println(result);
+            return result;
+        } catch (InterruptedException e) {
+            e.printStackTrace();
             return null;
         }
 
-    }
-    public  JSONObject billPayment(String bearerToken,String transaction_reference,String bill_ref_number,String beneficiary_account_number,String sasapay_bill_number,int amount,String merchant_code,int transaction_fee,String reason,String callBack_Url) throws Exception {
-        try{
 
+    }
+
+    public JSONObject billPayment(String bearerToken, String transaction_reference, String bill_ref_number, String beneficiary_account_number, String sasapay_bill_number, int amount, String merchant_code, int transaction_fee, String reason, String callBack_Url) {
+
+        try {
             String url = ApiUrls.bill_payment;
 
             Map<String, Object> body = Map.of(
@@ -761,64 +351,26 @@ public class Waas  {
                     "Reason", reason,
                     "CallBackUrl", callBack_Url
             );
+            Network jsonThread = new Network(url, bearerToken, body, 1);
+            Thread thread = new Thread(jsonThread);
+            thread.start();
+            thread.join();
 
-            URL obj = new URL(url);
-            HttpURLConnection con = (HttpURLConnection) obj.openConnection();
-
-            // Set request method
-            con.setRequestMethod("POST");
-
-            // Add bearer token to authorization header
-            con.setRequestProperty("Authorization", "Bearer " + bearerToken);
-
-            // Set request content type
-            con.setRequestProperty("Content-Type", "application/json");
-
-            // Set request body
-            JSONObject jsonObject = new JSONObject(body);
-            String requestBody = jsonObject.toString();
-
-            // Send post request
-            con.setDoOutput(true);
-            DataOutputStream out = new DataOutputStream(con.getOutputStream());
-            out.writeBytes(requestBody);
-            out.flush();
-            out.close();
-
-            int responseCode = con.getResponseCode();
-            if (responseCode != 200) {
-                InputStream errorStream = con.getErrorStream();
-                // Read the error stream into a string
-                String errorString = new Scanner(errorStream, "UTF-8").useDelimiter("\\Z").next();
-                // Parse the error string as JSON
-                JSONObject errorJson = new JSONObject(errorString);
-                // Extract the error message from the JSON object
-//            String errorMessage = errorJson.getString("error_message");
-                return errorJson;
-            }else {
-                // Get response
-                BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
-                String inputLine;
-                StringBuilder response = new StringBuilder();
-                while ((inputLine = in.readLine()) != null) {
-                    response.append(inputLine);
-                }
-                in.close();
-
-                // Return response as JSONObject
-                return new JSONObject(response.toString());
-            }
-        }catch (Exception e){
+            JSONObject result = jsonThread.postResult();
+            System.out.println(result);
+            return result;
+        } catch (InterruptedException e) {
+            e.printStackTrace();
             return null;
         }
 
     }
 
 
-   //
-    public  JSONObject BeneficiaryToMerchant(String bearerToken,String transaction_reference,String merchant_code,String beneficiary_account_number,int amount,String reason,int transaction_fee,String callBack_Url) throws Exception {
-        try{
+    //
+    public JSONObject BeneficiaryToMerchant(String bearerToken, String transaction_reference, String merchant_code, String beneficiary_account_number, int amount, String reason, int transaction_fee, String callBack_Url) {
 
+        try {
             String url = ApiUrls.beneficiary_to_merchant;
 
             Map<String, Object> body = Map.of(
@@ -830,62 +382,25 @@ public class Waas  {
                     "TransactionFee", transaction_fee,
                     "CallBackUrl", callBack_Url
             );
+            Network jsonThread = new Network(url, bearerToken, body, 1);
+            Thread thread = new Thread(jsonThread);
+            thread.start();
+            thread.join();
 
-            URL obj = new URL(url);
-            HttpURLConnection con = (HttpURLConnection) obj.openConnection();
-
-            // Set request method
-            con.setRequestMethod("POST");
-
-            // Add bearer token to authorization header
-            con.setRequestProperty("Authorization", "Bearer " + bearerToken);
-
-            // Set request content type
-            con.setRequestProperty("Content-Type", "application/json");
-
-            // Set request body
-            JSONObject jsonObject = new JSONObject(body);
-            String requestBody = jsonObject.toString();
-
-            // Send post request
-            con.setDoOutput(true);
-            DataOutputStream out = new DataOutputStream(con.getOutputStream());
-            out.writeBytes(requestBody);
-            out.flush();
-            out.close();
-
-            int responseCode = con.getResponseCode();
-            if (responseCode != 200) {
-                InputStream errorStream = con.getErrorStream();
-                // Read the error stream into a string
-                String errorString = new Scanner(errorStream, "UTF-8").useDelimiter("\\Z").next();
-                // Parse the error string as JSON
-                JSONObject errorJson = new JSONObject(errorString);
-                // Extract the error message from the JSON object
-//            String errorMessage = errorJson.getString("error_message");
-                return errorJson;
-            }else {
-                // Get response
-                BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
-                String inputLine;
-                StringBuilder response = new StringBuilder();
-                while ((inputLine = in.readLine()) != null) {
-                    response.append(inputLine);
-                }
-                in.close();
-
-                // Return response as JSONObject
-                return new JSONObject(response.toString());
-            }
-
-        }catch (Exception e){
+            JSONObject result = jsonThread.postResult();
+            System.out.println(result);
+            return result;
+        } catch (InterruptedException e) {
+            e.printStackTrace();
             return null;
         }
 
-    }
-    public  JSONObject merchantToBeneficiary(String bearerToken,String TransactionReference,String merchant_code,String beneficiary_account_number,int amount,String reason,  String callBack_Url) throws Exception {
-        try{
 
+    }
+
+    public JSONObject merchantToBeneficiary(String bearerToken, String TransactionReference, String merchant_code, String beneficiary_account_number, int amount, String reason, String callBack_Url) {
+
+        try {
             String url = ApiUrls.merchant_to_beneficiary;
 
             Map<String, Object> body = Map.of(
@@ -896,62 +411,24 @@ public class Waas  {
                     "Reason", reason,
                     "CallBackUrl", callBack_Url
             );
+            Network jsonThread = new Network(url, bearerToken, body, 1);
+            Thread thread = new Thread(jsonThread);
+            thread.start();
+            thread.join();
 
-            URL obj = new URL(url);
-            HttpURLConnection con = (HttpURLConnection) obj.openConnection();
-
-            // Set request method
-            con.setRequestMethod("POST");
-
-            // Add bearer token to authorization header
-            con.setRequestProperty("Authorization", "Bearer " + bearerToken);
-
-            // Set request content type
-            con.setRequestProperty("Content-Type", "application/json");
-
-            // Set request body
-            JSONObject jsonObject = new JSONObject(body);
-            String requestBody = jsonObject.toString();
-
-            // Send post request
-            con.setDoOutput(true);
-            DataOutputStream out = new DataOutputStream(con.getOutputStream());
-            out.writeBytes(requestBody);
-            out.flush();
-            out.close();
-
-            int responseCode = con.getResponseCode();
-            if (responseCode != 200) {
-                InputStream errorStream = con.getErrorStream();
-                // Read the error stream into a string
-                String errorString = new Scanner(errorStream, "UTF-8").useDelimiter("\\Z").next();
-                // Parse the error string as JSON
-                JSONObject errorJson = new JSONObject(errorString);
-                // Extract the error message from the JSON object
-//            String errorMessage = errorJson.getString("error_message");
-                return errorJson;
-            }else {
-                // Get response
-                BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
-                String inputLine;
-                StringBuilder response = new StringBuilder();
-                while ((inputLine = in.readLine()) != null) {
-                    response.append(inputLine);
-                }
-                in.close();
-
-                // Return response as JSONObject
-                return new JSONObject(response.toString());
-            }
-
-        }catch (Exception e){
+            JSONObject result = jsonThread.postResult();
+            System.out.println(result);
+            return result;
+        } catch (InterruptedException e) {
+            e.printStackTrace();
             return null;
         }
 
     }
-    public  JSONObject beneficiarySendToBank(String bearerToken,String transaction_reference,String beneficiary_accountNumber,String receiver_number,String channel_codes,int amount,String merchant_code,int transaction_fee,String callBack_Url) throws Exception {
-        try{
 
+    public JSONObject beneficiarySendToBank(String bearerToken, String transaction_reference, String beneficiary_accountNumber, String receiver_number, String channel_codes, int amount, String merchant_code, int transaction_fee, String callBack_Url) {
+
+        try {
             String url = ApiUrls.send_to_bank;
 
             Map<String, Object> body = Map.of(
@@ -964,66 +441,28 @@ public class Waas  {
                     "TransactionFee", transaction_fee,
                     "CallBackUrl", callBack_Url
             );
+            Network jsonThread = new Network(url, bearerToken, body, 1);
+            Thread thread = new Thread(jsonThread);
+            thread.start();
+            thread.join();
 
-            URL obj = new URL(url);
-            HttpURLConnection con = (HttpURLConnection) obj.openConnection();
-
-            // Set request method
-            con.setRequestMethod("POST");
-
-            // Add bearer token to authorization header
-            con.setRequestProperty("Authorization", "Bearer " + bearerToken);
-
-            // Set request content type
-            con.setRequestProperty("Content-Type", "application/json");
-
-            // Set request body
-            JSONObject jsonObject = new JSONObject(body);
-            String requestBody = jsonObject.toString();
-
-            // Send post request
-            con.setDoOutput(true);
-            DataOutputStream out = new DataOutputStream(con.getOutputStream());
-            out.writeBytes(requestBody);
-            out.flush();
-            out.close();
-
-            int responseCode = con.getResponseCode();
-            if (responseCode != 200) {
-                InputStream errorStream = con.getErrorStream();
-                // Read the error stream into a string
-                String errorString = new Scanner(errorStream, "UTF-8").useDelimiter("\\Z").next();
-                // Parse the error string as JSON
-                JSONObject errorJson = new JSONObject(errorString);
-                // Extract the error message from the JSON object
-//            String errorMessage = errorJson.getString("error_message");
-                return errorJson;
-            }else {
-                // Get response
-                BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
-                String inputLine;
-                StringBuilder response = new StringBuilder();
-                while ((inputLine = in.readLine()) != null) {
-                    response.append(inputLine);
-                }
-                in.close();
-
-                // Return response as JSONObject
-                return new JSONObject(response.toString());
-            }
-
-        }catch (Exception e){
+            JSONObject result = jsonThread.postResult();
+            System.out.println(result);
+            return result;
+        } catch (InterruptedException e) {
+            e.printStackTrace();
             return null;
         }
 
     }
-    public  JSONObject beneficiarySendToMobileMoney(String bearerToken,String transaction_reference,String beneficiary_account_number,String mobile_operator_number,String channel_code , int amount ,String merchant_code,int transaction_fee,String callBack_Url) throws Exception {
-        try{
 
-            String url =ApiUrls.send_to_mobile_money;
+    public JSONObject beneficiarySendToMobileMoney(String bearerToken, String transaction_reference, String beneficiary_account_number, String mobile_operator_number, String channel_code, int amount, String merchant_code, int transaction_fee, String callBack_Url) {
+
+        try {
+            String url = ApiUrls.send_to_mobile_money;
 
             Map<String, Object> body = Map.of(
-                    "TransactionReference",transaction_reference,
+                    "TransactionReference", transaction_reference,
                     "BeneficiaryAccountNumber", beneficiary_account_number,
                     "MobileOperatorNumber", mobile_operator_number,
                     "ChannelCode", channel_code,
@@ -1032,62 +471,24 @@ public class Waas  {
                     "TransactionFee", transaction_fee,
                     "CallBackUrl", callBack_Url
             );
+            Network jsonThread = new Network(url, bearerToken, body, 1);
+            Thread thread = new Thread(jsonThread);
+            thread.start();
+            thread.join();
 
-            URL obj = new URL(url);
-            HttpURLConnection con = (HttpURLConnection) obj.openConnection();
-
-            // Set request method
-            con.setRequestMethod("POST");
-
-            // Add bearer token to authorization header
-            con.setRequestProperty("Authorization", "Bearer " + bearerToken);
-
-            // Set request content type
-            con.setRequestProperty("Content-Type", "application/json");
-
-            // Set request body
-            JSONObject jsonObject = new JSONObject(body);
-            String requestBody = jsonObject.toString();
-
-            // Send post request
-            con.setDoOutput(true);
-            DataOutputStream out = new DataOutputStream(con.getOutputStream());
-            out.writeBytes(requestBody);
-            out.flush();
-            out.close();
-
-            int responseCode = con.getResponseCode();
-            if (responseCode != 200) {
-                InputStream errorStream = con.getErrorStream();
-                // Read the error stream into a string
-                String errorString = new Scanner(errorStream, "UTF-8").useDelimiter("\\Z").next();
-                // Parse the error string as JSON
-                JSONObject errorJson = new JSONObject(errorString);
-                // Extract the error message from the JSON object
-//            String errorMessage = errorJson.getString("error_message");
-                return errorJson;
-            }else {
-                // Get response
-                BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
-                String inputLine;
-                StringBuilder response = new StringBuilder();
-                while ((inputLine = in.readLine()) != null) {
-                    response.append(inputLine);
-                }
-                in.close();
-
-                // Return response as JSONObject
-                return new JSONObject(response.toString());
-            }
-
-        }catch (Exception e){
+            JSONObject result = jsonThread.postResult();
+            System.out.println(result);
+            return result;
+        } catch (InterruptedException e) {
+            e.printStackTrace();
             return null;
         }
 
     }
-    public  JSONObject beneficiarySendToBeneficiary(String bearerToken,String transaction_reference,String sender_beneficiary_accountNumber,String recipient_beneficiary_accountNumber,String amount,String merchant_code,String transaction_fee,String callBack_Url) throws Exception {
-        try{
 
+    public JSONObject beneficiarySendToBeneficiary(String bearerToken, String transaction_reference, String sender_beneficiary_accountNumber, String recipient_beneficiary_accountNumber, String amount, String merchant_code, String transaction_fee, String callBack_Url) {
+
+        try {
             String url = ApiUrls.beneficiary_send_to_beneficiary;
 
             Map<String, Object> body = Map.of(
@@ -1099,61 +500,26 @@ public class Waas  {
                     "TransactionFee", transaction_fee,
                     "CallBackUrl", callBack_Url
             );
+            Network jsonThread = new Network(url, bearerToken, body, 1);
+            Thread thread = new Thread(jsonThread);
+            thread.start();
+            thread.join();
 
-            URL obj = new URL(url);
-            HttpURLConnection con = (HttpURLConnection) obj.openConnection();
-
-            // Set request method
-            con.setRequestMethod("POST");
-
-            // Add bearer token to authorization header
-            con.setRequestProperty("Authorization", "Bearer " + bearerToken);
-
-            // Set request content type
-            con.setRequestProperty("Content-Type", "application/json");
-
-            // Set request body
-            JSONObject jsonObject = new JSONObject(body);
-            String requestBody = jsonObject.toString();
-
-            // Send post request
-            con.setDoOutput(true);
-            DataOutputStream out = new DataOutputStream(con.getOutputStream());
-            out.writeBytes(requestBody);
-            out.flush();
-            out.close();
-
-            int responseCode = con.getResponseCode();
-            if (responseCode != 200) {
-                InputStream errorStream = con.getErrorStream();
-                // Read the error stream into a string
-                String errorString = new Scanner(errorStream, "UTF-8").useDelimiter("\\Z").next();
-                // Parse the error string as JSON
-                JSONObject errorJson = new JSONObject(errorString);
-                // Extract the error message from the JSON object
-//            String errorMessage = errorJson.getString("error_message");
-                return errorJson;
-            }else {
-                // Get response
-                BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
-                String inputLine;
-                StringBuilder response = new StringBuilder();
-                while ((inputLine = in.readLine()) != null) {
-                    response.append(inputLine);
-                }
-                in.close();
-
-                // Return response as JSONObject
-                return new JSONObject(response.toString());
-            }
-
-        }catch (Exception e){
+            JSONObject result = jsonThread.postResult();
+            System.out.println(result);
+            return result;
+        } catch (InterruptedException e) {
+            e.printStackTrace();
             return null;
         }
 
+
     }
-    public  JSONObject topUpBeneficiaryWallet(String bearerToken,String transaction_reference,String network_code,String mobile_number,String beneficiary_account_number,String amount,String transaction_fee,String merchant_code,String callBack_Url,String reason) throws Exception {
-        try{
+
+
+    public JSONObject topUpBeneficiaryWallet(String bearerToken, String transaction_reference, String network_code, String mobile_number, String beneficiary_account_number, String amount, String transaction_fee, String merchant_code, String callBack_Url, String reason) {
+
+        try {
             String url = ApiUrls.top_up_beneficiary_wallet;
 
             Map<String, Object> body = Map.of(
@@ -1168,177 +534,87 @@ public class Waas  {
                     "CallBackUrl", callBack_Url,
                     "Reason", reason
             );
+            Network jsonThread = new Network(url, bearerToken, body, 1);
+            Thread thread = new Thread(jsonThread);
+            thread.start();
+            thread.join();
 
-            URL obj = new URL(url);
-            HttpURLConnection con = (HttpURLConnection) obj.openConnection();
-
-            // Set request method
-            con.setRequestMethod("POST");
-
-            // Add bearer token to authorization header
-            con.setRequestProperty("Authorization", "Bearer " + bearerToken);
-
-            // Set request content type
-            con.setRequestProperty("Content-Type", "application/json");
-
-            // Set request body
-            JSONObject jsonObject = new JSONObject(body);
-            String requestBody = jsonObject.toString();
-
-            // Send post request
-            con.setDoOutput(true);
-            DataOutputStream out = new DataOutputStream(con.getOutputStream());
-            out.writeBytes(requestBody);
-            out.flush();
-            out.close();
-
-            int responseCode = con.getResponseCode();
-            if (responseCode != 200) {
-                InputStream errorStream = con.getErrorStream();
-                // Read the error stream into a string
-                String errorString = new Scanner(errorStream, "UTF-8").useDelimiter("\\Z").next();
-                // Parse the error string as JSON
-                JSONObject errorJson = new JSONObject(errorString);
-                // Extract the error message from the JSON object
-//            String errorMessage = errorJson.getString("error_message");
-                return errorJson;
-            }else {
-                // Get response
-                BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
-                String inputLine;
-                StringBuilder response = new StringBuilder();
-                while ((inputLine = in.readLine()) != null) {
-                    response.append(inputLine);
-                }
-                in.close();
-
-                // Return response as JSONObject
-                return new JSONObject(response.toString());
-            }
-
-        }catch (Exception e){
-            return null;
-        }
-
-    }
-    public  JSONObject viewMerchantBeneficiary(String bearerToken,String merchant_code) {
-
-
-
-        try {
-            String urlEndPoint = ApiUrls.view_merchant_beneficiaries+merchant_code;
-            URL url = new URL(urlEndPoint);
-            HttpURLConnection con = (HttpURLConnection) url.openConnection();
-            con.setRequestMethod("GET");
-            con.setRequestProperty("Authorization", "Bearer "+bearerToken);
-            int responseCode = con.getResponseCode();
-
-            if (responseCode == HttpURLConnection.HTTP_OK) {
-                BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
-                String inputLine;
-                StringBuilder response = new StringBuilder();
-                while ((inputLine = in.readLine()) != null) {
-                    response.append(inputLine);
-                }
-                in.close();
-                JSONObject json = new JSONObject(response.toString());
-                return json;
-            } else {
-
-                InputStream errorStream = con.getErrorStream();
-                // Read the error stream into a string
-                String errorString = new Scanner(errorStream, "UTF-8").useDelimiter("\\Z").next();
-                // Parse the error string as JSON
-                JSONObject errorJson = new JSONObject(errorString);
-                // Extract the error message from the JSON object
-//            String errorMessage = errorJson.getString("error_message");
-                return errorJson;
-            }
-        } catch (Exception e) {
+            JSONObject result = jsonThread.postResult();
+            System.out.println(result);
+            return result;
+        } catch (InterruptedException e) {
             e.printStackTrace();
             return null;
         }
+
     }
 
 
-    public  JSONObject findNearestSasaPayAgent(String bearerToken,String Longitude,String Latitude ) {
+    public JSONObject viewMerchantBeneficiary(String bearerToken, String merchant_code) {
+
         try {
-            String urlEndpoint = ApiUrls.nearest_sasapay_agent+"Longitude="+Longitude+"&Latitude="+Latitude;
-            URL url = new URL(urlEndpoint);
+            String apiEndpoint = ApiUrls.view_merchant_beneficiaries + merchant_code;
+            Network jsonThread = new Network(apiEndpoint, bearerToken, 1, 0);
+            Thread thread = new Thread(jsonThread);
+            thread.start();
+            thread.join();
 
-            HttpURLConnection con = (HttpURLConnection) url.openConnection();
-            con.setRequestMethod("GET");
-            con.setRequestProperty("Authorization", "Bearer "+bearerToken);
-            int responseCode = con.getResponseCode();
 
-            if (responseCode == HttpURLConnection.HTTP_OK) {
-                BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
-                String inputLine;
-                StringBuilder response = new StringBuilder();
-                while ((inputLine = in.readLine()) != null) {
-                    response.append(inputLine);
-                }
-                in.close();
-                JSONObject json = new JSONObject(response.toString());
-                return json;
-            } else {
-
-                InputStream errorStream = con.getErrorStream();
-                // Read the error stream into a string
-                String errorString = new Scanner(errorStream, "UTF-8").useDelimiter("\\Z").next();
-                // Parse the error string as JSON
-                JSONObject errorJson = new JSONObject(errorString);
-                // Extract the error message from the JSON object
-//            String errorMessage = errorJson.getString("error_message");
-                return errorJson;
-            }
-        } catch (Exception e) {
+            JSONObject result = jsonThread.getResult();
+            System.out.println(result);
+            return result;
+        } catch (InterruptedException e) {
             e.printStackTrace();
             return null;
         }
-    }
-    public  JSONObject queryMerchantAccountBalances(String bearerToken,String merchant_code) {
 
-        String urlEndpoint = ApiUrls.query_merchants_balance+merchant_code;
+    }
+
+
+    public JSONObject findNearestSasaPayAgent(String bearerToken, String Longitude, String Latitude) {
+
 
         try {
-            URL url = new URL(urlEndpoint);
+            String apiEndpoint = ApiUrls.nearest_sasapay_agent + "Longitude=" + Longitude + "&Latitude=" + Latitude;
+            Network jsonThread = new Network(apiEndpoint, bearerToken, 1, 0);
+            Thread thread = new Thread(jsonThread);
+            thread.start();
+            thread.join();
 
-            HttpURLConnection con = (HttpURLConnection) url.openConnection();
-            con.setRequestMethod("GET");
-            con.setRequestProperty("Authorization", "Bearer "+bearerToken);
-            int responseCode = con.getResponseCode();
 
-            if (responseCode == HttpURLConnection.HTTP_OK) {
-                BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
-                String inputLine;
-                StringBuilder response = new StringBuilder();
-                while ((inputLine = in.readLine()) != null) {
-                    response.append(inputLine);
-                }
-                in.close();
-                JSONObject json = new JSONObject(response.toString());
-                return json;
-            } else {
-
-                InputStream errorStream = con.getErrorStream();
-                // Read the error stream into a string
-                String errorString = new Scanner(errorStream, "UTF-8").useDelimiter("\\Z").next();
-                // Parse the error string as JSON
-                JSONObject errorJson = new JSONObject(errorString);
-                // Extract the error message from the JSON object
-//            String errorMessage = errorJson.getString("error_message");
-                return errorJson;
-            }
-        } catch (Exception e) {
+            JSONObject result = jsonThread.getResult();
+            System.out.println(result);
+            return result;
+        } catch (InterruptedException e) {
             e.printStackTrace();
             return null;
         }
+
     }
 
-    public  JSONObject amendBeneficiaryDetails(String bearerToken,String merchant_code,String first_name,String middle_name,String last_name, String document_type,String document_number,String email,String beneficiary_account_number) throws Exception {
-        try{
+    public JSONObject queryMerchantAccountBalances(String bearerToken, String merchant_code) {
 
+        try {
+            String apiEndpoint = ApiUrls.query_merchants_balance + merchant_code;
+            Network jsonThread = new Network(apiEndpoint, bearerToken, 1, 0);
+            Thread thread = new Thread(jsonThread);
+            thread.start();
+            thread.join();
+
+
+            JSONObject result = jsonThread.getResult();
+            System.out.println(result);
+            return result;
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+            return null;
+        }
+
+    }
+
+    public JSONObject amendBeneficiaryDetails(String bearerToken, String merchant_code, String first_name, String middle_name, String last_name, String document_type, String document_number, String email, String beneficiary_account_number) {
+
+        try {
             String url = ApiUrls.amend_beneficiary_details;
 
             Map<String, Object> body = Map.of(
@@ -1352,62 +628,24 @@ public class Waas  {
                     "BeneficiaryAccountNumber", beneficiary_account_number
             );
 
-            URL obj = new URL(url);
-            HttpURLConnection con = (HttpURLConnection) obj.openConnection();
+            Network jsonThread = new Network(url, bearerToken, body, 1);
+            Thread thread = new Thread(jsonThread);
+            thread.start();
+            thread.join();
 
-            // Set request method
-            con.setRequestMethod("POST");
-
-            // Add bearer token to authorization header
-            con.setRequestProperty("Authorization", "Bearer " + bearerToken);
-
-            // Set request content type
-            con.setRequestProperty("Content-Type", "application/json");
-
-            // Set request body
-            JSONObject jsonObject = new JSONObject(body);
-            String requestBody = jsonObject.toString();
-
-            // Send post request
-            con.setDoOutput(true);
-            DataOutputStream out = new DataOutputStream(con.getOutputStream());
-            out.writeBytes(requestBody);
-            out.flush();
-            out.close();
-
-            int responseCode = con.getResponseCode();
-            if (responseCode != 200) {
-                InputStream errorStream = con.getErrorStream();
-                // Read the error stream into a string
-                String errorString = new Scanner(errorStream, "UTF-8").useDelimiter("\\Z").next();
-                // Parse the error string as JSON
-                JSONObject errorJson = new JSONObject(errorString);
-                // Extract the error message from the JSON object
-//            String errorMessage = errorJson.getString("error_message");
-                return errorJson;
-            }else {
-                // Get response
-                BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
-                String inputLine;
-                StringBuilder response = new StringBuilder();
-                while ((inputLine = in.readLine()) != null) {
-                    response.append(inputLine);
-                }
-                in.close();
-
-                // Return response as JSONObject
-                return new JSONObject(response.toString());
-            }
-
-        }catch (Exception e){
+            JSONObject result = jsonThread.postResult();
+            System.out.println(result);
+            return result;
+        } catch (InterruptedException e) {
+            e.printStackTrace();
             return null;
         }
 
     }
 
-    public  JSONObject beneficiaryOnboarding(String bearerToken,String merchant_code,String first_name,String middle_name,String last_name,String mobile_number,String document_type,String document_number,String email) throws Exception {
-        try{
+    public JSONObject beneficiaryOnboarding(String bearerToken, String merchant_code, String first_name, String middle_name, String last_name, String mobile_number, String document_type, String document_number, String email) {
 
+        try {
             String url = ApiUrls.beneficiary_onboarding;
 
             Map<String, Object> body = Map.of(
@@ -1422,61 +660,26 @@ public class Waas  {
                     "Email", email
             );
 
-            URL obj = new URL(url);
-            HttpURLConnection con = (HttpURLConnection) obj.openConnection();
+            Network jsonThread = new Network(url, bearerToken, body, 1);
+            Thread thread = new Thread(jsonThread);
+            thread.start();
+            thread.join();
 
-            // Set request method
-            con.setRequestMethod("POST");
-
-            // Add bearer token to authorization header
-            con.setRequestProperty("Authorization", "Bearer " + bearerToken);
-
-            // Set request content type
-            con.setRequestProperty("Content-Type", "application/json");
-
-            // Set request body
-            JSONObject jsonObject = new JSONObject(body);
-            String requestBody = jsonObject.toString();
-
-            // Send post request
-            con.setDoOutput(true);
-            DataOutputStream out = new DataOutputStream(con.getOutputStream());
-            out.writeBytes(requestBody);
-            out.flush();
-            out.close();
-
-            int responseCode = con.getResponseCode();
-            if (responseCode != 200) {
-                InputStream errorStream = con.getErrorStream();
-                // Read the error stream into a string
-                String errorString = new Scanner(errorStream, "UTF-8").useDelimiter("\\Z").next();
-                // Parse the error string as JSON
-                JSONObject errorJson = new JSONObject(errorString);
-                // Extract the error message from the JSON object
-//            String errorMessage = errorJson.getString("error_message");
-                return errorJson;
-            }else {
-                // Get response
-                BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
-                String inputLine;
-                StringBuilder response = new StringBuilder();
-                while ((inputLine = in.readLine()) != null) {
-                    response.append(inputLine);
-                }
-                in.close();
-
-                // Return response as JSONObject
-                return new JSONObject(response.toString());
-            }
-        }catch (Exception e){
+            JSONObject result = jsonThread.postResult();
+            System.out.println(result);
+            return result;
+        } catch (InterruptedException e) {
+            e.printStackTrace();
             return null;
         }
 
+
     }
 
-    public  JSONObject beneficiaryOnboardingConfirm(String bearerToken,String merchant_code,String registration_request_Id,String confirmation_code) throws Exception {
-        try{
+    public JSONObject beneficiaryOnboardingConfirm(String bearerToken, String merchant_code, String registration_request_Id, String confirmation_code) {
 
+
+        try {
             String url = ApiUrls.beneficiary_onboarding_confirmation;
 
             Map<String, Object> body = Map.of(
@@ -1485,63 +688,24 @@ public class Waas  {
                     "ConfirmationCode", confirmation_code
             );
 
-            URL obj = new URL(url);
-            HttpURLConnection con = (HttpURLConnection) obj.openConnection();
+            Network jsonThread = new Network(url, bearerToken, body, 1);
+            Thread thread = new Thread(jsonThread);
+            thread.start();
+            thread.join();
 
-            // Set request method
-            con.setRequestMethod("POST");
-
-            // Add bearer token to authorization header
-            con.setRequestProperty("Authorization", "Bearer " + bearerToken);
-
-            // Set request content type
-            con.setRequestProperty("Content-Type", "application/json");
-
-            // Set request body
-            JSONObject jsonObject = new JSONObject(body);
-            String requestBody = jsonObject.toString();
-
-            // Send post request
-            con.setDoOutput(true);
-            DataOutputStream out = new DataOutputStream(con.getOutputStream());
-            out.writeBytes(requestBody);
-            out.flush();
-            out.close();
-
-            int responseCode = con.getResponseCode();
-            if (responseCode != 200) {
-                InputStream errorStream = con.getErrorStream();
-                // Read the error stream into a string
-                String errorString = new Scanner(errorStream, "UTF-8").useDelimiter("\\Z").next();
-                // Parse the error string as JSON
-                JSONObject errorJson = new JSONObject(errorString);
-                // Extract the error message from the JSON object
-//            String errorMessage = errorJson.getString("error_message");
-                return errorJson;
-            }else {
-                // Get response
-                BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
-                String inputLine;
-                StringBuilder response = new StringBuilder();
-                while ((inputLine = in.readLine()) != null) {
-                    response.append(inputLine);
-                }
-                in.close();
-
-                // Return response as JSONObject
-                return new JSONObject(response.toString());
-            }
-
-        }catch (Exception e){
+            JSONObject result = jsonThread.postResult();
+            System.out.println(result);
+            return result;
+        } catch (InterruptedException e) {
+            e.printStackTrace();
             return null;
         }
 
-
     }
 
-    public  JSONObject beneficiaryKycUpload(String bearerToken,String merchant_code,String passportPhoto_imagePath,String documentFront_imagePath,String documentBack_imagePath) throws Exception {
-        try{
+    public JSONObject beneficiaryKycUpload(String bearerToken, String merchant_code, String passportPhoto_imagePath, String documentFront_imagePath, String documentBack_imagePath) {
 
+        try {
             String url = ApiUrls.beneficiary_kyc_upload;
 
             File passport_size_photo = new File(passportPhoto_imagePath);
@@ -1551,64 +715,28 @@ public class Waas  {
             Map<String, Object> body = Map.of(
                     "MerchantCode", merchant_code,
                     "PassportSizePhoto", passport_size_photo,
-                    "DocumentImageFront",  document_image_front,
+                    "DocumentImageFront", document_image_front,
                     "DocumentImageBack", document_image_Back
             );
 
-            URL obj = new URL(url);
-            HttpURLConnection con = (HttpURLConnection) obj.openConnection();
+            Network jsonThread = new Network(url, bearerToken, body, 1);
+            Thread thread = new Thread(jsonThread);
+            thread.start();
+            thread.join();
 
-            // Set request method
-            con.setRequestMethod("POST");
-
-            // Add bearer token to authorization header
-            con.setRequestProperty("Authorization", "Bearer " + bearerToken);
-
-            // Set request content type
-            con.setRequestProperty("Content-Type", "application/json");
-
-            // Set request body
-            JSONObject jsonObject = new JSONObject(body);
-            String requestBody = jsonObject.toString();
-
-            // Send post request
-            con.setDoOutput(true);
-            DataOutputStream out = new DataOutputStream(con.getOutputStream());
-            out.writeBytes(requestBody);
-            out.flush();
-            out.close();
-
-            int responseCode = con.getResponseCode();
-            if (responseCode != 200) {
-                InputStream errorStream = con.getErrorStream();
-                // Read the error stream into a string
-                String errorString = new Scanner(errorStream, "UTF-8").useDelimiter("\\Z").next();
-                // Parse the error string as JSON
-                JSONObject errorJson = new JSONObject(errorString);
-                // Extract the error message from the JSON object
-//            String errorMessage = errorJson.getString("error_message");
-                return errorJson;
-            }else {
-                // Get response
-                BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
-                String inputLine;
-                StringBuilder response = new StringBuilder();
-                while ((inputLine = in.readLine()) != null) {
-                    response.append(inputLine);
-                }
-                in.close();
-
-                // Return response as JSONObject
-                return new JSONObject(response.toString());
-            }
-        }catch (Exception e){
+            JSONObject result = jsonThread.postResult();
+            System.out.println(result);
+            return result;
+        } catch (InterruptedException e) {
+            e.printStackTrace();
             return null;
         }
 
     }
 
-    public  JSONObject entityOnboarding(String bearerToken,String merchant_code,String business_name,String business_type,String kra_pin,String business_reg_no,String country_code,String mobile_number,String email ,String proposed_account_number,String call_BackURL) throws Exception {
-        try{
+    public JSONObject entityOnboarding(String bearerToken, String merchant_code, String business_name, String business_type, String kra_pin, String business_reg_no, String country_code, String mobile_number, String email, String proposed_account_number, String call_BackURL) {
+
+        try {
 
             String url = ApiUrls.entity_onboarding;
 
@@ -1624,64 +752,24 @@ public class Waas  {
                     "ProposedAccountNumber", proposed_account_number,
                     "CallBackURL", call_BackURL
             );
+            Network jsonThread = new Network(url, bearerToken, body, 1);
+            Thread thread = new Thread(jsonThread);
+            thread.start();
+            thread.join();
 
-            URL obj = new URL(url);
-            HttpURLConnection con = (HttpURLConnection) obj.openConnection();
-
-            // Set request method
-            con.setRequestMethod("POST");
-
-            // Add bearer token to authorization header
-            con.setRequestProperty("Authorization", "Bearer " + bearerToken);
-
-            // Set request content type
-            con.setRequestProperty("Content-Type", "application/json");
-
-            // Set request body
-            JSONObject jsonObject = new JSONObject(body);
-            String requestBody = jsonObject.toString();
-
-            // Send post request
-            con.setDoOutput(true);
-            DataOutputStream out = new DataOutputStream(con.getOutputStream());
-            out.writeBytes(requestBody);
-            out.flush();
-            out.close();
-
-            int responseCode = con.getResponseCode();
-            if (responseCode != 200) {
-                InputStream errorStream = con.getErrorStream();
-                // Read the error stream into a string
-                String errorString = new Scanner(errorStream, "UTF-8").useDelimiter("\\Z").next();
-                // Parse the error string as JSON
-                JSONObject errorJson = new JSONObject(errorString);
-                // Extract the error message from the JSON object
-//            String errorMessage = errorJson.getString("error_message");
-                return errorJson;
-            }else {
-                // Get response
-                BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
-                String inputLine;
-                StringBuilder response = new StringBuilder();
-                while ((inputLine = in.readLine()) != null) {
-                    response.append(inputLine);
-                }
-                in.close();
-
-                // Return response as JSONObject
-                return new JSONObject(response.toString());
-            }
-
-        }catch (Exception e){
+            JSONObject result = jsonThread.postResult();
+            System.out.println(result);
+            return result;
+        } catch (InterruptedException e) {
+            e.printStackTrace();
             return null;
         }
 
     }
 
-    public  JSONObject entityOnboardingConfirm(String bearerToken,String merchant_code,String registration_request_Id,String confirmation_code) throws Exception {
+    public JSONObject entityOnboardingConfirm(String bearerToken, String merchant_code, String registration_request_Id, String confirmation_code) {
 
-        try{
-
+        try {
             String url = ApiUrls.entity_onboarding_confirm;
 
             Map<String, Object> body = Map.of(
@@ -1689,62 +777,25 @@ public class Waas  {
                     "RegistrationRequestId", registration_request_Id,
                     "ConfirmationCode", confirmation_code
             );
+            Network jsonThread = new Network(url, bearerToken, body, 1);
+            Thread thread = new Thread(jsonThread);
+            thread.start();
+            thread.join();
 
-            URL obj = new URL(url);
-            HttpURLConnection con = (HttpURLConnection) obj.openConnection();
-
-            // Set request method
-            con.setRequestMethod("POST");
-
-            // Add bearer token to authorization header
-            con.setRequestProperty("Authorization", "Bearer " + bearerToken);
-
-            // Set request content type
-            con.setRequestProperty("Content-Type", "application/json");
-
-            // Set request body
-            JSONObject jsonObject = new JSONObject(body);
-            String requestBody = jsonObject.toString();
-
-            // Send post request
-            con.setDoOutput(true);
-            DataOutputStream out = new DataOutputStream(con.getOutputStream());
-            out.writeBytes(requestBody);
-            out.flush();
-            out.close();
-
-            int responseCode = con.getResponseCode();
-            if (responseCode != 200) {
-                InputStream errorStream = con.getErrorStream();
-                // Read the error stream into a string
-                String errorString = new Scanner(errorStream, "UTF-8").useDelimiter("\\Z").next();
-                // Parse the error string as JSON
-                JSONObject errorJson = new JSONObject(errorString);
-                // Extract the error message from the JSON object
-//            String errorMessage = errorJson.getString("error_message");
-                return errorJson;
-            }else {
-                // Get response
-                BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
-                String inputLine;
-                StringBuilder response = new StringBuilder();
-                while ((inputLine = in.readLine()) != null) {
-                    response.append(inputLine);
-                }
-                in.close();
-
-                // Return response as JSONObject
-                return new JSONObject(response.toString());
-            }
-        }catch (Exception e){
+            JSONObject result = jsonThread.postResult();
+            System.out.println(result);
+            return result;
+        } catch (InterruptedException e) {
+            e.printStackTrace();
             return null;
         }
 
+
     }
 
-    public  JSONObject entityKycUpload(String bearerToken,String merchant_code,String entity_account_number,String kraPinCert_imagePath,String businessRegCert_imagePath) throws Exception {
-        try{
+    public JSONObject entityKycUpload(String bearerToken, String merchant_code, String entity_account_number, String kraPinCert_imagePath, String businessRegCert_imagePath) {
 
+        try {
             String url = ApiUrls.entity_kyc_upload;
 
             File kraPinCert = new File(kraPinCert_imagePath);
@@ -1753,77 +804,41 @@ public class Waas  {
             Map<String, Object> body = Map.of(
                     "MerchantCode", merchant_code,
                     "EntityAccountNumber", entity_account_number,
-                    "KraPinCertificate",  kraPinCert,
+                    "KraPinCertificate", kraPinCert,
                     "BusinessRegistrationCertificate", businessRegCert
             );
+            Network jsonThread = new Network(url, bearerToken, body, 1);
+            Thread thread = new Thread(jsonThread);
+            thread.start();
+            thread.join();
 
-            URL obj = new URL(url);
-            HttpURLConnection con = (HttpURLConnection) obj.openConnection();
-
-            // Set request method
-            con.setRequestMethod("POST");
-
-            // Add bearer token to authorization header
-            con.setRequestProperty("Authorization", "Bearer " + bearerToken);
-
-            // Set request content type
-            con.setRequestProperty("Content-Type", "application/json");
-
-            // Set request body
-            JSONObject jsonObject = new JSONObject(body);
-            String requestBody = jsonObject.toString();
-
-            // Send post request
-            con.setDoOutput(true);
-            DataOutputStream out = new DataOutputStream(con.getOutputStream());
-            out.writeBytes(requestBody);
-            out.flush();
-            out.close();
-
-            int responseCode = con.getResponseCode();
-            if (responseCode != 200) {
-                InputStream errorStream = con.getErrorStream();
-                // Read the error stream into a string
-                String errorString = new Scanner(errorStream, "UTF-8").useDelimiter("\\Z").next();
-                // Parse the error string as JSON
-                JSONObject errorJson = new JSONObject(errorString);
-                // Extract the error message from the JSON object
-//            String errorMessage = errorJson.getString("error_message");
-                return errorJson;
-            }else { // Get response
-                BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
-                String inputLine;
-                StringBuilder response = new StringBuilder();
-                while ((inputLine = in.readLine()) != null) {
-                    response.append(inputLine);
-                }
-                in.close();
-
-                // Return response as JSONObject
-                return new JSONObject(response.toString());}
-
-        }catch (Exception e){
+            JSONObject result = jsonThread.postResult();
+            System.out.println(result);
+            return result;
+        } catch (InterruptedException e) {
+            e.printStackTrace();
             return null;
         }
+
 
     }
     //Authentication
 
-    public  JSONObject getWaasAccessToken(String clientId,String clientSecret)  {
+    public JSONObject getWaasAccessToken(String clientId, String clientSecret) {
 
         String tokenUrl = ApiUrls.waas_auth;
         String encoded = Base64.getEncoder().encodeToString((clientId + ":" + clientSecret).getBytes());
 
 
         try {
-            Network jsonThread = new Network(tokenUrl, encoded,0,0);
+            Network jsonThread = new Network(tokenUrl, encoded, 0, 0);
             Thread thread = new Thread(jsonThread);
             thread.start();
             thread.join();
 
             JSONObject result = jsonThread.getResult();
             System.out.println(result);
-            return  result;
+            return result;
         } catch (InterruptedException e) {
             e.printStackTrace();
             return null;
@@ -1832,11 +847,11 @@ public class Waas  {
 
     }
 
-    public  JSONObject channelCodes(String bearerToken) {
+    public JSONObject channelCodes(String bearerToken) {
         String apiEndpoint = ApiUrls.channel_code;
 
         try {
-            Network jsonThread = new Network(apiEndpoint, bearerToken,1,0);
+            Network jsonThread = new Network(apiEndpoint, bearerToken, 1, 0);
             Thread thread = new Thread(jsonThread);
             thread.start();
             thread.join();
@@ -1844,7 +859,7 @@ public class Waas  {
 
             JSONObject result = jsonThread.getResult();
             System.out.println(result);
-            return  result;
+            return result;
         } catch (InterruptedException e) {
             e.printStackTrace();
             return null;
@@ -1853,7 +868,7 @@ public class Waas  {
     }
 
 
-    public  JSONObject requestPayment(String bearerToken,String transaction_reference,String network_code,String mobile_number,String beneficiary_account_number,int amount,int transaction_fee,String merchant_code,String reason,String callBack_Url)  {
+    public JSONObject requestPayment(String bearerToken, String transaction_reference, String network_code, String mobile_number, String beneficiary_account_number, int amount, int transaction_fee, String merchant_code, String reason, String callBack_Url) {
         String url = ApiUrls.request_payment;
 
         Map<String, Object> body = Map.of(
@@ -1871,21 +886,19 @@ public class Waas  {
 
 
         try {
-            Network jsonThread = new Network(url, bearerToken,body, 1);
+            Network jsonThread = new Network(url, bearerToken, body, 1);
             Thread thread = new Thread(jsonThread);
             thread.start();
             thread.join();
 
             JSONObject result = jsonThread.postResult();
             System.out.println(result);
-            return  result;
+            return result;
         } catch (InterruptedException e) {
             e.printStackTrace();
             return null;
         }
 
-
     }
-
 
 }
