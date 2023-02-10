@@ -1,14 +1,11 @@
 package org.sasapay;
-
 import com.github.tsohr.JSONObject;
-
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.util.Base64;
 import java.util.Map;
 import java.util.Scanner;
 
