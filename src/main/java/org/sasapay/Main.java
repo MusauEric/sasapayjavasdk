@@ -5,8 +5,8 @@ import com.github.tsohr.JSONObject;
 public class Main {
     public static void main(String[] args)  {
 
-//        String clientId = "IYiwGW1C3x9OAozWpYrRYE7dIHFELkOPcYjHfQwA";
-//        String clientSecret = "P7HXSTbS9hxXrPNkheB0WuUqAfhlqtzPyf6HFFcMa2S8pCNGHmTYFKxn6vrH02wL0PFM4qnrgXUa5WrLMWTjfyFJY3E15aGfCHKGHIF9LzoJatKoHf85JVunAiWY6HYD";
+//        String clientId = "JKIYiwGW1C3x9OAozWpYrRYE7dIHFELkOPcYjHfQwA";
+//        String clientSecret = "PP7HXSTbS9hxXrPNkheB0WuUqAfhlqtzPyf6HFFcMa2S8pCNGHmTYFKxn6vrH02wL0PFM4qnrgXUa5WrLMWTjfyFJY3E15aGfCHKGHIF9LzoJatKoHf85JVunAiWY6HYD";
 //
 //       JSONObject json =new Waas().getWaasAccessToken( clientId, clientSecret);
 //
