@@ -2,7 +2,9 @@ package org.sasapay;
 
 public class ApiUrls {
 
-    public static String base_url = "https://api.sasapay.me/";
+//    public static String base_url = "https://api.sasapay.me/";
+
+    public static String base_url = "https://sandbox.sasapay.app/";
 
     //SasaPayUrls
     public static String sasapay_auth_url = base_url + "api/v1/auth/token/?grant_type=client_credentials";
