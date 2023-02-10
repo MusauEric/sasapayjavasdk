@@ -65,7 +65,6 @@ public class Waas {
         }
     }
 
-
     public JSONObject postPaidBillPayments(String bearerToken, String merchant_code, String service_code, String beneficiary_account_number, String account_number, String mobile_number, int amount, String callBack_Url) {
 
         try {
@@ -181,7 +180,6 @@ public class Waas {
             e.printStackTrace();
             return null;
         }
-
 
     }
 
@@ -672,7 +670,6 @@ public class Waas {
 
     public JSONObject beneficiaryOnboardingConfirm(String bearerToken, String merchant_code, String registration_request_Id, String confirmation_code) {
 
-
         try {
             String url = ApiUrls.beneficiary_onboarding_confirmation;
 
@@ -823,7 +820,6 @@ public class Waas {
         String tokenUrl = ApiUrls.waas_auth;
         String encoded = Base64.getEncoder().encodeToString((clientId + ":" + clientSecret).getBytes());
 
-
         try {
             Network jsonThread = new Network(tokenUrl, encoded, 0, 0);
             Thread thread = new Thread(jsonThread);
@@ -861,7 +857,6 @@ public class Waas {
 
     }
 
-
     public JSONObject requestPayment(String bearerToken, String transaction_reference, String network_code, String mobile_number, String beneficiary_account_number, int amount, int transaction_fee, String merchant_code, String reason, String callBack_Url) {
         String url = ApiUrls.request_payment;
 
@@ -877,7 +872,6 @@ public class Waas {
                 "Reason", reason,
                 "CallBackUrl", callBack_Url
         );
-
 
         try {
             Network jsonThread = new Network(url, bearerToken, body, 1);
