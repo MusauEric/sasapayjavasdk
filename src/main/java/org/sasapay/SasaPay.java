@@ -264,7 +264,6 @@ public class SasaPay {
             e.printStackTrace();
             return null;
         }
-
     }
 
     //Authentication

@@ -8,7 +8,6 @@ import java.util.Map;
 public class Waas {
 
     //WAAS PRODUCTS
-
     public JSONObject purchaseKPLCtoken(String bearerToken, String merchant_code, String meter_number, String beneficiary_account_number, String mobile_number, int amount, String callBackUrl) {
         try {
             String url = ApiUrls.purchase_kplc;
@@ -151,7 +150,6 @@ public class Waas {
             return null;
         }
 
-
     }
 
     public JSONObject transferPointToMerchantsAccount(String bearerToken, String transaction_reference, String beneficiary_account_number, int points, int transaction_fee, String merchant_code, String callBack_Url, String reason) {
@@ -239,7 +237,6 @@ public class Waas {
             e.printStackTrace();
             return null;
         }
-
     }
 
     public JSONObject queryTransactionStatus(String bearerToken, String merchant_code, String transaction_Reference) {
@@ -295,7 +292,6 @@ public class Waas {
         }
 
     }
-
     public JSONObject tillPayment(String bearerToken, String transaction_reference, String beneficiary_account_number, int sasapay_bill_number, int amount, int merchant_code, int transaction_fee, String reason, String callBack_Url) {
 
         try {
@@ -323,7 +319,6 @@ public class Waas {
             e.printStackTrace();
             return null;
         }
-
 
     }
 
@@ -358,7 +353,6 @@ public class Waas {
 
     }
 
-
     //
     public JSONObject BeneficiaryToMerchant(String bearerToken, String transaction_reference, String merchant_code, String beneficiary_account_number, int amount, String reason, int transaction_fee, String callBack_Url) {
 
@@ -386,7 +380,6 @@ public class Waas {
             e.printStackTrace();
             return null;
         }
-
 
     }
 
@@ -505,9 +498,7 @@ public class Waas {
             return null;
         }
 
-
     }
-
 
     public JSONObject topUpBeneficiaryWallet(String bearerToken, String transaction_reference, String network_code, String mobile_number, String beneficiary_account_number, String amount, String transaction_fee, String merchant_code, String callBack_Url, String reason) {
 
@@ -541,7 +532,6 @@ public class Waas {
 
     }
 
-
     public JSONObject viewMerchantBeneficiary(String bearerToken, String merchant_code) {
 
         try {
@@ -564,7 +554,6 @@ public class Waas {
 
 
     public JSONObject findNearestSasaPayAgent(String bearerToken, String Longitude, String Latitude) {
-
 
         try {
             String apiEndpoint = ApiUrls.nearest_sasapay_agent + "Longitude=" + Longitude + "&Latitude=" + Latitude;
@@ -592,7 +581,6 @@ public class Waas {
             Thread thread = new Thread(jsonThread);
             thread.start();
             thread.join();
-
 
             JSONObject result = jsonThread.getResult();
             System.out.println(result);
@@ -664,7 +652,6 @@ public class Waas {
             e.printStackTrace();
             return null;
         }
-
 
     }
 
@@ -781,7 +768,6 @@ public class Waas {
             return null;
         }
 
-
     }
 
     public JSONObject entityKycUpload(String bearerToken, String merchant_code, String entity_account_number, String kraPinCert_imagePath, String businessRegCert_imagePath) {
@@ -811,7 +797,6 @@ public class Waas {
             return null;
         }
 
-
     }
     //Authentication
 
@@ -833,7 +818,6 @@ public class Waas {
             e.printStackTrace();
             return null;
         }
-
 
     }
 
